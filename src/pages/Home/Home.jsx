@@ -2,6 +2,7 @@ import { GoogleLogin } from '@react-oauth/google'
 import jwt_decode from 'jwt-decode'
 
 import { useDispatch, useSelector } from 'react-redux'
+import { Form } from 'src/component/RegisterForm/RegisterForm'
 import { selectSignedIn, setSignedIn, setUserData } from 'src/features/userSlice'
 import './Home.css'
 
@@ -26,6 +27,7 @@ export const Home = () => {
             We provide high quality online resource for reading blogs. Just sign up and start
             reading some quality blogs.
           </p>
+          <Form />
 
           <GoogleLogin
             onSuccess={loginGoogle}

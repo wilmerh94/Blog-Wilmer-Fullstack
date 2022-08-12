@@ -68,7 +68,7 @@ export const Navbar = () => {
               <Avatar
                 src={userData?.picture}
                 alt={userData?.name}
-                sx={{ p: 0, width: '5', height: '55px' }}
+                sx={{ p: 0, width: '45px', height: '45px' }}
               />
               <Typography variant='h6' sx={{ mx: 1, px: 1 }}>
                 {userData?.given_name}
