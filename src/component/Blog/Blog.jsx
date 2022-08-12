@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { selectUserInput, setBlogData } from 'src/features/userSlice'
 import './Blog.css'
 export const Blog = () => {
+  const id = useId()
+
   const searchInput = useSelector(selectUserInput)
   const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=5b690c9a6983114519ab5e366c864743`
+  const dispatch = useDispatch()
+
   const [blogs, setBlogs] = useState()
   const [loading, setLoading] = useState(true)
-  const dispatch = useDispatch()
   useEffect(() => {
     axios
       .get(blog_url)
       .then((response) => {
         dispatch(setBlogData(response.data))
         setBlogs(response.data)
+        console.log(response.data)
         setLoading(false)
       })
       .catch((error) => {
@@ -28,7 +32,12 @@ export const Blog = () => {
       {loading ? <h1 className='loading'>Loading...</h1> : ''}
       <div className='blogs'>
         {blogs?.articles?.map((blog) => (
-          <a className='blog' target='_blank' href={blog.url} rel='noreferrer' key={blog}>
+          <a
+            className='blog'
+            target='_blank'
+            href={blog.url}
+            rel='noreferrer'
+            key={`${id}-blog`}>
             <img src={blog.image} />
             <div>
               <h3 className='sourceName'>

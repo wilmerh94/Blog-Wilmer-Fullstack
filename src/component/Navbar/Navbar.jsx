@@ -16,7 +16,6 @@ export const Navbar = () => {
   const [inputValue, setInputValue] = useState('tech')
   const isSignedIn = useSelector(selectSignedIn)
   const userData = useSelector(selectUserData)
-  console.log(userData)
 
   const dispatch = useDispatch()
   // eslint-disable-next-line no-unused-vars
