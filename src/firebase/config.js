@@ -8,15 +8,14 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAIEmCZv0qg8jX_Mt41tnw_Czm5y2FvtuU',
-  authDomain: 'blog-will.firebaseapp.com',
-  projectId: 'blog-will',
-  storageBucket: 'blog-will.appspot.com',
-  messagingSenderId: '219357780165',
-  appId: '1:219357780165:web:50e5f2074464b5942478ac'
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID
 }
 
 // Initialize Firebase

@@ -9,6 +9,7 @@ import store from './store/_index'
 
 import { ColorProvider } from './context/ThemeContext'
 import { readUserActiveAction } from './redux/userDuck'
+import ChatProvider from './context/ChatContext'
 
 readUserActiveAction()(store.dispatch)
 
@@ -16,15 +17,17 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ColorProvider>
-        <GoogleOAuthProvider
-          clientId='219357780165-ffsofj93pfp4mfa82p2bmcp0h2so3kmq.apps.googleusercontent.com'
-          UxMode='popup'>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </GoogleOAuthProvider>
-      </ColorProvider>
+      <ChatProvider>
+        <ColorProvider>
+          <GoogleOAuthProvider
+            clientId='219357780165-ffsofj93pfp4mfa82p2bmcp0h2so3kmq.apps.googleusercontent.com'
+            UxMode='popup'>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </GoogleOAuthProvider>
+        </ColorProvider>
+      </ChatProvider>
     </Provider>
   </React.StrictMode>
 )
