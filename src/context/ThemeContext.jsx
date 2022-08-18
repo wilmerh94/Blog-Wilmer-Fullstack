@@ -1,15 +1,33 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-export const ThemeContext = createContext()
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light')
+import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { createContext, useMemo, useState } from 'react'
+export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme)
-  }, [theme])
+export const ColorProvider = ({ children }) => {
+  const [mode, setMode] = useState('dark')
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
+        localStorage.setItem('theme', mode)
+        console.log(mode)
+      }
+    }),
+    [mode]
+  )
 
-  const value = { theme, setTheme }
+  const theme1 = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode
+        }
+      }),
+    [mode]
+  )
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme1}>{children} </ThemeProvider>
+    </ColorModeContext.Provider>
+  )
 }
-
-export const useTheme = () => useContext(ThemeContext)

@@ -1,43 +1,27 @@
-import { useEffect, useId, useState } from 'react'
+import { useId } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import axios from 'axios'
-import { selectUserInput, setBlogData } from 'src/features/userSlice'
+import { blogData } from 'src/redux/userDuck'
 import './Blog.css'
 export const Blog = () => {
   const id = useId()
 
-  const searchInput = useSelector(selectUserInput)
-  const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=5b690c9a6983114519ab5e366c864743`
-  const dispatch = useDispatch()
+  const { blogData: blogs, loading } = useSelector((store) => store.user2)
 
-  const [blogs, setBlogs] = useState()
-  const [loading, setLoading] = useState(true)
-  useEffect(() => {
-    axios
-      .get(blog_url)
-      .then((response) => {
-        dispatch(setBlogData(response.data))
-        setBlogs(response.data)
-        console.log(response.data)
-        setLoading(false)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [searchInput])
+  const dispatch = useDispatch()
+  dispatch(blogData())
 
   return (
     <div className='blog__page'>
       <h1 className='blog__page__header'>Blogs</h1>
       {loading ? <h1 className='loading'>Loading...</h1> : ''}
       <div className='blogs'>
-        {blogs?.articles?.map((blog) => (
+        {blogs?.articles?.map((blog, index) => (
           <a
             className='blog'
             target='_blank'
             href={blog.url}
             rel='noreferrer'
-            key={`${id}-blog`}>
+            key={`${id}-blog${index}`}>
             <img src={blog.image} />
             <div>
               <h3 className='sourceName'>
@@ -52,8 +36,7 @@ export const Blog = () => {
 
         {blogs?.totalArticles == 0 && (
           <h1 className='no__blogs'>
-            No blogs available 😞. Search something else to read blogs on the greatest
-            platform.
+            No blogs available 😞. Search something else to read blogs on the greatest platform.
           </h1>
         )}
       </div>

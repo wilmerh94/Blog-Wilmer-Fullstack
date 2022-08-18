@@ -1,3 +1,3 @@
-# Chat in React and SendBird
+# Blog page
 
-A simple react app that demonstrates how to use the Sendbird
+This blog page is created with React, Context, Firebase, Axios, Reducers, Hooks and Material UI

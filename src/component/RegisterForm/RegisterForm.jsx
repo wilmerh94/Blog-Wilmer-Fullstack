@@ -14,7 +14,6 @@ export const Form = () => {
     formState: { errors }
   } = useForm({ defaultValues })
 
-  //       handleSubmit will validate your inputs before invoking "onSubmit"
   const onSubmit = (data) => console.log(data)
 
   return (

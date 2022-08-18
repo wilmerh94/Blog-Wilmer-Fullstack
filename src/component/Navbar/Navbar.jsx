@@ -1,38 +1,55 @@
 import Avatar from '@mui/material/Avatar'
 import { googleLogout } from '@react-oauth/google'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  selectSignedIn,
-  selectUserData,
-  setInput,
-  setSignedIn,
-  setUserData
-} from 'src/features/userSlice'
 
-import { AppBar, Box, Button, Container, InputBase, Toolbar, Typography } from '@mui/material'
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
+
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  InputBase,
+  Toolbar,
+  Typography,
+  useTheme
+} from '@mui/material'
+import { Link } from 'react-router-dom'
+import { ColorModeContext } from 'src/context/ThemeContext'
+import { searchInputUser, signOutAction } from 'src/redux/userDuck'
 import './Navbar.css'
+
 export const Navbar = () => {
   const [inputValue, setInputValue] = useState('tech')
-  const isSignedIn = useSelector(selectSignedIn)
-  const userData = useSelector(selectUserData)
 
   const dispatch = useDispatch()
+
+  const { isSignedIn, userData } = useSelector((store) => store.user2)
   // eslint-disable-next-line no-unused-vars
   const logout = (response) => {
     googleLogout()
-    dispatch(setSignedIn(false))
-    dispatch(setUserData(null))
+    dispatch(signOutAction())
   }
+
   const handleClick = (e) => {
     e.preventDefault()
-    dispatch(setInput(inputValue))
+    dispatch(searchInputUser(inputValue))
   }
+  const theme = useTheme()
+  const colorMode = useContext(ColorModeContext)
 
   return (
     <AppBar position='static'>
-      <Container maxWidth='xl'>
-        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Container maxWidth='xl' sx={{ backgroundColor: '#004170' }}>
+        <Toolbar
+          disableGutters
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}>
           <Typography
             variant='h6'
             noWrap
@@ -42,11 +59,15 @@ export const Navbar = () => {
               mr: 2,
               display: 'flex',
               fontWeight: 700,
+              alignItems: 'center',
               color: 'inherit',
               textDecoration: 'none'
             }}>
-            Will Blogs 💬
+            Will Blogs
           </Typography>
+          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color='inherit'>
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
 
           {isSignedIn && (
             <div className='blog__search'>
@@ -66,21 +87,45 @@ export const Navbar = () => {
           {isSignedIn ? (
             <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
               <Avatar
-                src={userData?.picture}
-                alt={userData?.name}
+                src={userData.picture}
+                alt={userData.name}
                 sx={{ p: 0, width: '45px', height: '45px' }}
               />
               <Typography variant='h6' sx={{ mx: 1, px: 1 }}>
-                {userData?.given_name}
+                {userData.name}
               </Typography>
-              <Button onClick={logout} color='inherit' size='small' sx={{ m: 0, p: 0 }}>
+              <Button
+                onClick={logout}
+                color='inherit'
+                size='small'
+                sx={{ m: 0, p: 0 }}
+                component={Link}
+                to='/'>
                 Logout
               </Button>
             </Box>
           ) : (
-            <Typography variant='h6' component='div' sx={{ mx: 1 }}>
-              User not available 😞
-            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+              <Button
+                color='inherit'
+                size='small'
+                sx={{ display: isSignedIn && 'none' }}
+                component={Link}
+                to='/login'>
+                Login
+              </Button>
+              <Button
+                color='inherit'
+                size='small'
+                sx={{ display: isSignedIn && 'none' }}
+                component={Link}
+                to='/sign-in'>
+                Sign In
+              </Button>
+              <Button color='inherit' size='small' component={Link} to='/contact'>
+                Contact
+              </Button>
+            </Box>
           )}
         </Toolbar>
       </Container>

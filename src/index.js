@@ -1,26 +1,30 @@
+import { GoogleOAuthProvider } from '@react-oauth/google'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
-import App from './App'
-import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App'
+import './index.css'
 import store from './store/_index'
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { ThemeProvider } from './context/ThemeContext'
+
+import { ColorProvider } from './context/ThemeContext'
+import { readUserActiveAction } from './redux/userDuck'
+
+readUserActiveAction()(store.dispatch)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider>
+      <ColorProvider>
         <GoogleOAuthProvider
-          clientId='550772219217-41fq505ea67eb856la0op0lp1c5hiqrp.apps.googleusercontent.com'
+          clientId='219357780165-ffsofj93pfp4mfa82p2bmcp0h2so3kmq.apps.googleusercontent.com'
           UxMode='popup'>
           <BrowserRouter>
             <App />
           </BrowserRouter>
         </GoogleOAuthProvider>
-      </ThemeProvider>
+      </ColorProvider>
     </Provider>
   </React.StrictMode>
 )

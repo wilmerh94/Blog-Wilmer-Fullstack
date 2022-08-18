@@ -1,14 +1,33 @@
-import { Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useEffect, useState } from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
+import { auth } from 'src/firebase/config'
+export const PrivateRoute = () => {
+  const [firebaseUser, setFirebaseUser] = useState(false)
+  const [checkingStatus, setCheckingStatus] = useState(true)
 
-export const PrivateRoute = ({ children }) => {
-  const { user: authUser } = useSelector((x) => x.auth)
+  useEffect(() => {
+    const fetchUser = () => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
 
-  if (!authUser) {
-    // not logged in so redirect to login page with the return url
-    return <Navigate to='login' />
+          setFirebaseUser(user)
+        } else {
+          setFirebaseUser(null)
+        }
+        setCheckingStatus(false)
+      })
+    }
+    fetchUser()
+  }, [])
+  if (checkingStatus) return <div>Loading!!!</div>
+
+  if (localStorage.getItem('user')) {
+    const userStorage = JSON.parse(localStorage.getItem('user'))
+    if (userStorage.uid === firebaseUser.uid) {
+      return userStorage.uid === firebaseUser.uid ? <Outlet /> : <Navigate to='/login' />
+    }
   }
-
-  // Auth is true so return child components
-  return children
 }
