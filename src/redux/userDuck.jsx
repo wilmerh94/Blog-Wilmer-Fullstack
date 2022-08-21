@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { getAuth, signInWithPopup, signOut } from 'firebase/auth'
+import { getAuth, signInWithCustomToken, signInWithPopup, signOut } from 'firebase/auth'
 import { auth, provider } from 'src/firebase/config'
 import axios from 'axios'
 import { useEffect } from 'react'
@@ -85,24 +85,6 @@ export const signOutAction = () => (dispatch) => {
   signOut(auth)
   localStorage.removeItem('user')
   dispatch({ type: USER_OUT })
-}
-
-export const signIn = (action) => async (dispatch) => {
-  dispatch({ type: LOADING })
-  try {
-    // await signInWithCustomToken(auth, token)
-    // Signed in
-    // const user = userCredential.user
-    // ...
-    dispatch({
-      type: USER_REGISTER,
-      payload: { uid: action.jti, email: action.email }
-    })
-  } catch (err) {
-    console.log(err)
-    // Dispatch in case of any error happens
-    dispatch({ type: USER_ERROR })
-  }
 }
 
 export const searchInputUser = (action) => (dispatch) => {

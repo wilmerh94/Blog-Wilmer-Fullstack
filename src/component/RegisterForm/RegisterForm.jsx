@@ -1,20 +1,42 @@
-import { TextField } from '@mui/material'
-import { useForm, Controller } from 'react-hook-form'
+/* eslint-disable no-unused-vars */
+import Google from '@mui/icons-material/Google'
+import { Button, TextField } from '@mui/material'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { useFirebase } from 'src/context/FirebaseContext'
 import './RegisterForm.css'
+const googleLogoURL = 'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg'
 const defaultValues = {
   email: '',
   name: '',
-  username: ''
+  password: ''
 }
 export const Form = () => {
   const {
     handleSubmit,
     reset,
     control,
+    getValues,
     formState: { errors }
   } = useForm({ defaultValues })
+  const { registerFB } = useFirebase()
+  const [formComplete, setFormComplete] = useState(defaultValues)
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    console.log(data)
+    const values = getValues()
+    setFormComplete(values)
+    const { name: displayName, email, password } = formComplete
+    registerFB(displayName, email, password)
+    reset()
+    console.log(data)
+  }
+  // useEffect(() => {
+  //   console.log(formComplete)
+  //   const { email, password } = formComplete
+  //   registerFB(email, password)
+  //   reset()
+  // }, [])
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -27,12 +49,7 @@ export const Form = () => {
           name='name'
           rules={{ required: true, maxLength: 80 }}
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='Full name'
-              type='text'
-              sx={{ m: 1, width: '60%' }}
-            />
+            <TextField {...field} placeholder='Full name' type='text' sx={{ m: 1, width: '60%' }} />
           )}
           control={control}
         />

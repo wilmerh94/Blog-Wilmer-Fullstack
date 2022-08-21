@@ -1,19 +1,20 @@
 /* eslint-disable no-unused-vars */
 import { Box, Button } from '@mui/material'
 import { useContext } from 'react'
+import { ChatCustom } from 'src/component/ChatCustom/ChatCustom'
+import { Loading } from 'src/component/Loading/Loading'
 import { ChatContext } from 'src/context/ChatContext'
 
 export const Chat = () => {
   const { value } = useContext(ChatContext)
   const { user, signInUserGoogle, logOLut } = value
-  console.log(user)
   return (
     <Box
       sx={{
         marginTop: 1,
         marginBottom: 1,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'space-around',
         '& button': { m: 1 }
       }}>
@@ -28,7 +29,7 @@ export const Chat = () => {
           </Button>
         ) : (
           <Button variant='contained' onClick={signInUserGoogle}>
-            Access
+            Join
           </Button>
         )}
       </Box>
@@ -40,7 +41,7 @@ export const Chat = () => {
           flexDirection: 'column',
           alignItems: 'center'
         }}>
-        {user !== null ? <div>Hello world</div> : <div>Loading</div>}
+        {user.status !== null ? <ChatCustom /> : <Loading />}
       </Box>
     </Box>
   )

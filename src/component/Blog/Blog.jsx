@@ -1,11 +1,12 @@
 import { useId } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { blogData } from 'src/redux/userDuck'
+import { Loading } from '../Loading/Loading'
 import './Blog.css'
 export const Blog = () => {
   const id = useId()
 
-  const { blogData: blogs, loading } = useSelector((store) => store.user2)
+  const { blogData: blogs, loading } = useSelector((store) => store.user)
 
   const dispatch = useDispatch()
   dispatch(blogData())
@@ -13,7 +14,7 @@ export const Blog = () => {
   return (
     <div className='blog__page'>
       <h1 className='blog__page__header'>Blogs</h1>
-      {loading ? <h1 className='loading'>Loading...</h1> : ''}
+      {loading ? <Loading /> : ''}
       <div className='blogs'>
         {blogs?.articles?.map((blog, index) => (
           <a

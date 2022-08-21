@@ -27,7 +27,7 @@ export const Navbar = () => {
 
   const dispatch = useDispatch()
 
-  const { isSignedIn, userData } = useSelector((store) => store.user2)
+  const { isSignedIn, userData } = useSelector((store) => store.user)
   // eslint-disable-next-line no-unused-vars
   const logout = (response) => {
     googleLogout()

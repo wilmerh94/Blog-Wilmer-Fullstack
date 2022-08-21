@@ -8,7 +8,7 @@ import { Box, Button } from '@mui/material'
 export const GoogleLogin = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { loading, isSignedIn } = useSelector((store) => store.user2)
+  const { loading, isSignedIn } = useSelector((store) => store.user)
 
   useEffect(() => {
     if (isSignedIn) {

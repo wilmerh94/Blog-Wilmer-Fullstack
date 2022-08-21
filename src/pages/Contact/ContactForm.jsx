@@ -78,13 +78,7 @@ export const ContactForm = () => {
             minLength: 6
           }}
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='Full name*'
-              fullWidth
-              type='text'
-              sx={{ m: 1 }}
-            />
+            <TextField {...field} placeholder='Full name*' fullWidth type='text' sx={{ m: 1 }} />
           )}
           control={control}
         />
@@ -115,13 +109,7 @@ export const ContactForm = () => {
         <Controller
           name='phone'
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='Phone Number*'
-              type='text'
-              fullWidth
-              sx={{ m: 1 }}
-            />
+            <TextField {...field} placeholder='Phone Number*' type='text' fullWidth sx={{ m: 1 }} />
           )}
           control={control}
         />

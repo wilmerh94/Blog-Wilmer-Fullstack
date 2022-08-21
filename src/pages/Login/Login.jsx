@@ -13,9 +13,9 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
-import { GoogleLogin } from './GoogleLogin'
+import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
 export const Login = () => {
-  const { loading } = useSelector((store) => store.user2)
+  const { loading } = useSelector((store) => store.user)
 
   // eslint-disable-next-line no-unused-vars
   const [showPassword, setShowPassword] = useState(false)
@@ -110,7 +110,7 @@ export const Login = () => {
           </Grid>
         </Grid>
       </Box>
-      <GoogleLogin />
+      <ButtonLogin />
     </Box>
   )
 }

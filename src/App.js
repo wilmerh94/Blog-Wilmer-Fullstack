@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
 
 // Style
 import './App.css'
@@ -8,26 +8,23 @@ import { Blog } from './component/Blog/Blog'
 import { Navbar } from './component/Navbar/Navbar'
 import { PokeDeck } from './component/PokeDeck/PokeDeck'
 
-import { ContactForm } from './pages/Contact/ContactForm'
-import { Login } from './pages/Login/Login'
-import { Home } from './pages/Home/Home'
 import { Chat } from './pages/Chat/Chat'
+import { ContactForm } from './pages/Contact/ContactForm'
+import { Home } from './pages/Home/Home'
+import { Login } from './pages/Login/Login'
 
 // Context
-import { ChatContext } from './context/ChatContext'
-import { useContext } from 'react'
+import { Dashboard } from './pages/Dashboard/Dashboard'
 
 // import { Form } from './component/Form/Form'
 // import { PrivateRoute } from './component/PrivateRoute/PrivateRoute'
 
 function App() {
-  const { isSignedIn } = useSelector((store) => store.user2)
-  // Initialize context
-  const { greet } = useContext(ChatContext)
+  const { isSignedIn } = useSelector((store) => store.user)
   return (
     <div className='App'>
       <Navbar />
-      {greet}
+      <Dashboard />
       <Routes>
         <Route
           path='/'

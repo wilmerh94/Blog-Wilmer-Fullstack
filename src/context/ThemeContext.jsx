@@ -1,9 +1,11 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { createContext, useMemo, useState } from 'react'
+import SendbirdProvider from '@sendbird/uikit-react/SendbirdProvider'
+
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 export const ColorProvider = ({ children }) => {
-  const [mode, setMode] = useState('dark')
+  const [mode, setMode] = useState('light')
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -27,7 +29,9 @@ export const ColorProvider = ({ children }) => {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme1}>{children} </ThemeProvider>
+      <ThemeProvider theme={theme1}>
+        <SendbirdProvider theme={mode}>{children} </SendbirdProvider>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   )
 }

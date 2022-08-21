@@ -2,6 +2,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
 import { auth } from 'src/firebase/config'
+import { Loading } from '../Loading/Loading'
 export const PrivateRoute = () => {
   const [firebaseUser, setFirebaseUser] = useState(false)
   const [checkingStatus, setCheckingStatus] = useState(true)
@@ -22,7 +23,7 @@ export const PrivateRoute = () => {
     }
     fetchUser()
   }, [])
-  if (checkingStatus) return <div>Loading!!!</div>
+  if (checkingStatus) return <Loading />
 
   if (localStorage.getItem('user')) {
     const userStorage = JSON.parse(localStorage.getItem('user'))
