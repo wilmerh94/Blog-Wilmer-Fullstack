@@ -7,8 +7,8 @@ import { useFirebase } from 'src/context/FirebaseContext'
 import './RegisterForm.css'
 const googleLogoURL = 'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg'
 const defaultValues = {
+  displayName: '',
   email: '',
-  name: '',
   password: ''
 }
 export const Form = () => {
@@ -26,8 +26,10 @@ export const Form = () => {
     console.log(data)
     const values = getValues()
     setFormComplete(values)
-    const { name: displayName, email, password } = formComplete
-    registerFB(displayName, email, password)
+    const { email, password, displayName } = formComplete
+    console.log(typeof email)
+
+    registerFB(email, password, displayName)
     reset()
     console.log(data)
   }
@@ -46,7 +48,7 @@ export const Form = () => {
 
       <div className='container'>
         <Controller
-          name='name'
+          name='displayName'
           rules={{ required: true, maxLength: 80 }}
           render={({ field }) => (
             <TextField {...field} placeholder='Full name' type='text' sx={{ m: 1, width: '60%' }} />
@@ -59,7 +61,6 @@ export const Form = () => {
           rules={{
             required: true,
             pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               message: 'invalid email address'
             }
           }}

@@ -11,6 +11,8 @@ export const Home = () => {
   const navigate = useNavigate()
 
   const { isSignedIn } = useSelector((store) => store.user)
+  const avatar =
+    'https://avataaars.io/?avatarStyle=Circle&topType=NoHair&accessoriesType=Round&facialHairType=BeardLight&facialHairColor=Black&clotheType=BlazerSweater&clotheColor=Gray01&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Light'
 
   useEffect(() => {
     if (isSignedIn) {
@@ -20,10 +22,11 @@ export const Home = () => {
 
   return (
     <>
-      <div className='home__page' style={{ display: isSignedIn ? 'none' : '' }}>
+      <div className='home__page'>
         {!isSignedIn ? (
           <div className='login__message'>
-            <h2>📗</h2>
+            <img src={avatar} />
+
             <h1>A Readers favorite place!</h1>
             <p>
               We provide high quality online resource for reading blogs. Just sign up and start
@@ -32,7 +35,11 @@ export const Home = () => {
             <Form />
           </div>
         ) : (
-          ''
+          <div className='login__message'>
+            <img src={avatar} />
+            <h1>Welcome to my website!</h1>
+            <p>This is perfect for showing off my awesome projects</p>
+          </div>
         )}
       </div>
       {!isSignedIn && (

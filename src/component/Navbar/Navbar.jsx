@@ -1,11 +1,11 @@
 import Avatar from '@mui/material/Avatar'
-import { googleLogout } from '@react-oauth/google'
 import { useContext, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
 
+import SearchIcon from '@mui/icons-material/Search'
 import {
   AppBar,
   Box,
@@ -14,23 +14,24 @@ import {
   IconButton,
   InputBase,
   Toolbar,
-  Typography,
-  useTheme
+  Typography
 } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useFirebase } from 'src/context/FirebaseContext'
 import { ColorModeContext } from 'src/context/ThemeContext'
 import { searchInputUser, signOutAction } from 'src/redux/userDuck'
+import { Loading } from '../Loading/Loading'
 import './Navbar.css'
 
 export const Navbar = () => {
   const [inputValue, setInputValue] = useState('tech')
-
+  const { user, loading, signOutUserFB } = useFirebase()
   const dispatch = useDispatch()
 
-  const { isSignedIn, userData } = useSelector((store) => store.user)
+  const { isSignedIn } = useSelector((store) => store.user)
   // eslint-disable-next-line no-unused-vars
-  const logout = (response) => {
-    googleLogout()
+  const logout = () => {
+    signOutUserFB()
     dispatch(signOutAction())
   }
 
@@ -38,12 +39,11 @@ export const Navbar = () => {
     e.preventDefault()
     dispatch(searchInputUser(inputValue))
   }
-  const theme = useTheme()
   const colorMode = useContext(ColorModeContext)
-
+  if (loading) return <Loading />
   return (
     <AppBar position='static'>
-      <Container maxWidth='xl' sx={{ backgroundColor: '#004170' }}>
+      <Container maxWidth='xl'>
         <Toolbar
           disableGutters
           sx={{
@@ -66,44 +66,44 @@ export const Navbar = () => {
             Will Blogs
           </Typography>
           <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color='inherit'>
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            {localStorage.getItem('theme') === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
 
-          {isSignedIn && (
-            <div className='blog__search'>
-              <InputBase
-                sx={{ ml: 1, flex: 1, color: 'inherit' }}
-                placeholder='Search for a blogs'
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                inputProps={{ 'aria-label': 'Search for a blog' }}
-              />
-              <Button color='inherit' onClick={handleClick} size='small'>
-                Search
-              </Button>
-            </div>
-          )}
+          {user ? (
+            <>
+              <div className='blog__search'>
+                <InputBase
+                  sx={{ ml: 1, flex: 1, color: 'inherit' }}
+                  placeholder='Search for a blogs'
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  inputProps={{ 'aria-label': 'Search for a blog' }}
+                />
+                <IconButton color='inherit' onClick={handleClick} size='small'>
+                  <SearchIcon />
+                </IconButton>
+              </div>
 
-          {isSignedIn ? (
-            <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-              <Avatar
-                src={userData.picture}
-                alt={userData.name}
-                sx={{ p: 0, width: '45px', height: '45px' }}
-              />
-              <Typography variant='h6' sx={{ mx: 1, px: 1 }}>
-                {userData.name}
-              </Typography>
-              <Button
-                onClick={logout}
-                color='inherit'
-                size='small'
-                sx={{ m: 0, p: 0 }}
-                component={Link}
-                to='/'>
-                Logout
-              </Button>
-            </Box>
+              <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+                <Avatar
+                  src={user.photoURL}
+                  alt={user.displayName}
+                  sx={{ p: 0, width: '45px', height: '45px' }}
+                />
+                <Typography variant='h6' sx={{ mx: 1, px: 1 }}>
+                  {user.displayName}
+                </Typography>
+                <Button
+                  onClick={logout}
+                  color='inherit'
+                  size='small'
+                  sx={{ m: 0, p: 0 }}
+                  component={Link}
+                  to='/'>
+                  Logout
+                </Button>
+              </Box>
+            </>
           ) : (
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
               <Button

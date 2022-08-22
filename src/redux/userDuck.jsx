@@ -3,6 +3,8 @@ import { getAuth, signInWithCustomToken, signInWithPopup, signOut } from 'fireba
 import { auth, provider } from 'src/firebase/config'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { useFetch } from 'src/Hooks/useFetch'
+import { Loading } from 'src/component/Loading/Loading'
 
 // Initial Data
 const initialState = {
@@ -25,9 +27,9 @@ const BLOG_DATA = 'BLOG_DATA'
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_INPUT:
-      return { ...state, searchInput: action.payload }
+      return { ...state, searchInput: action.payload.searchInput, blogData: action.payload.blog }
     case BLOG_DATA:
-      return { ...state, loading: false, blogData: action.payload }
+      return { ...state, blogData: action.payload }
     case LOADING:
       return { ...state, loading: true }
     case USER_ERROR:
@@ -87,24 +89,24 @@ export const signOutAction = () => (dispatch) => {
   dispatch({ type: USER_OUT })
 }
 
-export const searchInputUser = (action) => (dispatch) => {
-  dispatch({ type: SEARCH_INPUT, payload: action })
+export const searchInputUser = (action) => async (dispatch) => {
+  try {
+    const blog_url = `https://gnews.io/api/v4/search?q=${action}&token=5b690c9a6983114519ab5e366c864743&lang=en`
+    const response = await axios.get(blog_url)
+
+    dispatch({ type: SEARCH_INPUT, payload: { blog: response.data, searchInput: action } })
+  } catch (error) {
+    console.log(error)
+  }
 }
 export const blogData = () => async (dispatch, getState) => {
-  const { searchInput } = getState().user2
-  const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=5b690c9a6983114519ab5e366c864743`
-
   try {
-    useEffect(() => {
-      axios
-        .get(blog_url)
-        .then((response) => {
-          dispatch({ type: BLOG_DATA, payload: response.data })
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }, [searchInput])
+    const { searchInput } = getState().user
+    const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=5b690c9a6983114519ab5e366c864743&lang=en`
+
+    const response = await axios.get(blog_url)
+    console.log(response)
+    dispatch({ type: BLOG_DATA, payload: response.data })
   } catch (error) {
     console.log(error)
   }

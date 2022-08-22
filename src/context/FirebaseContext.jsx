@@ -23,11 +23,13 @@ export function FirebaseProvider ({ children }) {
   useEffect(() => {
     // This is an observable so It need to be disabled after I use it
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user)
       if (user) {
+        console.log('User is Active')
         const { email, photoURL, displayName, uid } = user
         setUser({ email, photoURL, displayName, uid })
       } else {
+        console.log('User is not Active')
+
         setUser(null)
       }
     })
@@ -35,7 +37,9 @@ export function FirebaseProvider ({ children }) {
     return () => unsubscribe()
   }, [])
 
-  const registerFB = async (displayName, email, password) => {
+  // SignUp user
+
+  const registerFB = async (email, password, displayName) => {
     setIsLoading(true)
 
     try {
@@ -45,6 +49,7 @@ export function FirebaseProvider ({ children }) {
       if (!userCredential) {
         console.error('Could not complete Sign Up')
       }
+
       // Updating profile
       await updateProfile(auth.currentUser, {
         displayName,
@@ -62,10 +67,11 @@ export function FirebaseProvider ({ children }) {
       //  Creating collection of Users
       await setDoc(doc(db, 'users', user.uid), formDataCopy)
       setIsLoading(false)
+      alert(`Welcome ${displayName}!`)
 
       console.log('User created successfully')
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
       setIsLoading(false)
     }
   }
@@ -80,6 +86,7 @@ export function FirebaseProvider ({ children }) {
         online: true
       })
       setIsLoading(false)
+      alert('Welcome back!')
     } catch (error) {
       console.log(error)
       setIsLoading(false)
@@ -99,6 +106,7 @@ export function FirebaseProvider ({ children }) {
 
       signOut(auth)
       setIsLoading(false)
+      alert('Successfully signed out!')
     } catch (error) {
       console.log(error)
       setIsLoading(false)

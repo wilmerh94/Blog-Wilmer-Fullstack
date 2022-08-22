@@ -14,9 +14,10 @@ import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
+import { useFirebase } from 'src/context/FirebaseContext'
 export const Login = () => {
   const { loading } = useSelector((store) => store.user)
-
+  const { loginUserFB } = useFirebase()
   // eslint-disable-next-line no-unused-vars
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -32,7 +33,10 @@ export const Login = () => {
     }))
   }
 
-  const onSubmit = () => {}
+  const onSubmit = (e) => {
+    e.preventDefault()
+    loginUserFB(email, password)
+  }
   return (
     <Box
       sx={{

@@ -7,13 +7,13 @@ import { Loading } from '../Loading/Loading'
 export const ChatCustom = () => {
   const { config } = useSendbirdStateContext()
   console.log(useSendbirdStateContext())
-  config.appId = process.env.REACT_APP_APP_ID
+  config.appId = process.env.REACT_SENDBIRD_APP_IDD
   config.userId = process.env.REACT_APP_USER_ID
   return config.userId !== null ? (
     <div style={{ height: '80vh', width: '80vw' }}>
       <SendBirdApp
-        appId={`${process.env.REACT_APP_APP_ID}`}
-        userId={`${process.env.REACT_APP_USER_ID}`}
+        appId={`${process.env.REACT_SENDBIRD_APP_ID}`}
+        userId={`${process.env.REACT_SENDBIRD_USER_ID}`}
         showSearchIcon
         channelUrl='sendbird_open_channel_111732_ca0f264f39ea9fd0457fe59e62711f12e13da2e8'
         replyType='QUOTE_REPLY'

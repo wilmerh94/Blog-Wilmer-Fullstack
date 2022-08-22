@@ -1,6 +1,7 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import { createContext, useMemo, useState } from 'react'
 import SendbirdProvider from '@sendbird/uikit-react/SendbirdProvider'
+import { createContext, useMemo, useState } from 'react'
+import { LightTheme } from './LightTheme'
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
@@ -17,19 +18,11 @@ export const ColorProvider = ({ children }) => {
     [mode]
   )
 
-  const theme1 = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode
-        }
-      }),
-    [mode]
-  )
+  const theme = useMemo(() => createTheme(mode === 'light' ? LightTheme : 'light'), [mode])
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme1}>
+      <ThemeProvider theme={theme}>
         <SendbirdProvider theme={mode}>{children} </SendbirdProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>

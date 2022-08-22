@@ -9,7 +9,6 @@ import { registerUserAction } from 'src/redux/userDuck'
 export const ButtonLogin = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
   const { loading, isSignedIn } = useSelector((store) => store.user)
   // onSuccess={loginGoogle}
   // onFailure={loginGoogle}
@@ -34,6 +33,7 @@ export const ButtonLogin = () => {
         sx={{
           width: '70%',
           height: '60%',
+
           display: 'flex',
           alignItems: 'center'
         }}>

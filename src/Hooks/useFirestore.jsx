@@ -1,5 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { db } from 'src/firebase/config'
 
 // This hook to be able to reuse the same data in different components. This hook is going to return an Object
@@ -9,19 +9,20 @@ export const useFirestore = () => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
-  // Adding useEffect I'm making sure im calling this function just one time
-  useEffect(() => {
-    getData()
-  }, [])
+  // Adding useEffect I'm making sure im calling this function just one time but every time when i render a page it will be calling
+  // useEffect(() => {
+  //   getData()
+  // }, [])
+
   // Collection of users data
-  const getData = async (collectionName = 'users') => {
+  const getData = async (collectionName) => {
     setLoading(true)
 
     // Fetching Data with FireStore
     try {
       /** IF I WANT TO DO FILTER IN MY COLLECTION TO SHOW TO THE USER
        * const dataRef = collection(db,collectionName)
-       * const q = query(dataRef, where("NAME_OF_DATA", "CONDITION(== OR !=)", "DATA_RESULT"))
+       * const q = query(dataRef, where("NAME_OF_DATA", "CONDITION(== OR !=)", "DATA_RESULT like auth.currentUser.uid"))
        * const querySnapshot = await getDocs(q)
        */
       const querySnapshot = await getDocs(collection(db, collectionName))
@@ -36,9 +37,26 @@ export const useFirestore = () => {
     }
   }
 
+  // Adding data to the store with
+  /** const addData=async(url)=>{
+   * try{
+   * setLoading(true);
+   * const newDoc ={
+   * online: true,
+   * nanoid: nanoid(6),
+   * uid: auth,currentUser.uid
+   * }
+   * const docRef=doc(db,"users", newDoc.nanoid)
+   * await setDoc(docRef,newDoc)
+   * }catch(err){setError(err.message)}finally{
+   * setLoading(false)}
+   * }
+   * */
+
   return {
     data,
     error,
-    loading
+    loading,
+    getData
   }
 }

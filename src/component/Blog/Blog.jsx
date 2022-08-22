@@ -1,4 +1,4 @@
-import { useId } from 'react'
+import { useEffect, useId } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { blogData } from 'src/redux/userDuck'
 import { Loading } from '../Loading/Loading'
@@ -9,7 +9,9 @@ export const Blog = () => {
   const { blogData: blogs, loading } = useSelector((store) => store.user)
 
   const dispatch = useDispatch()
-  dispatch(blogData())
+  useEffect(() => {
+    dispatch(blogData())
+  }, [])
 
   return (
     <div className='blog__page'>
