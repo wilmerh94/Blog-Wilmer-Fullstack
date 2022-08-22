@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
+import { ProfileCard } from 'src/component/ProfileCard/ProfileCard'
 import { Form } from 'src/component/RegisterForm/RegisterForm'
 import './Home.css'
 
@@ -39,6 +40,12 @@ export const Home = () => {
             <img src={avatar} />
             <h1>Welcome to my website!</h1>
             <p>This is perfect for showing off my awesome projects</p>
+            <p>
+              I am a Full-Stack Web Developer specializing in React front-ends, NodeJS and GCP
+              backends.
+            </p>
+            <p>Keep scrolling to see some of my projects or checkout my resume here</p>
+            <ProfileCard />
           </div>
         )}
       </div>

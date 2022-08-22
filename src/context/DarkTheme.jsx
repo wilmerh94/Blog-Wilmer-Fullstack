@@ -2,9 +2,9 @@ import { createTheme } from '@mui/material/styles'
 
 export const DarkTheme = createTheme({
   palette: {
-    mode: 'dark',
+    type: 'dark',
     primary: {
-      main: '#145DA0'
+      main: '#0C2D48'
     },
     secondary: {
       main: '#e76e3c'
@@ -33,54 +33,58 @@ export const DarkTheme = createTheme({
   shape: {
     borderRadius: 6
   },
-  overrides: {
+  components: {
     MuiInput: {
-      underline: {
-        color: 'orange', // input color focus of not
-        backgroundColor: 'orange', // background color of whole input
-        '&:hover:not($disabled):after': {
-          backgroundColor: 'orange' // its when its hover and input is focused
-        },
-        '&:hover:not($disabled):before': {
-          backgroundColor: 'orange' // its when you hover and input is not focused
-        },
-        '&:after': {
-          backgroundColor: 'orange' // when input is focused, Its just for example. Its better to set this one using primary color
-        },
-        '&:before': {
-          backgroundColor: 'orange' // when input is not touched
+      styleOverrides: {
+        underline: {
+          color: 'orange', // input color focus of not
+          backgroundColor: 'orange', // background color of whole input
+          '&:hover:not($disabled):after': {
+            backgroundColor: 'orange' // its when its hover and input is focused
+          },
+          '&:hover:not($disabled):before': {
+            backgroundColor: 'orange' // its when you hover and input is not focused
+          },
+          '&:after': {
+            backgroundColor: 'orange' // when input is focused, Its just for example. Its better to set this one using primary color
+          },
+          '&:before': {
+            backgroundColor: 'orange' // when input is not touched
+          }
         }
       }
     },
     MuiSwitch: {
-      root: {
-        width: 42,
-        height: 26,
-        padding: 0,
-        margin: 8
-      },
-      switchBase: {
-        padding: 1,
-        '&$checked, &$colorPrimary$checked, &$colorSecondary$checked': {
-          transform: 'translateX(16px)',
-          color: '#fff',
-          '& + $track': {
-            opacity: 1,
-            border: 'none'
+      styleOverrides: {
+        root: {
+          width: 42,
+          height: 26,
+          padding: 0,
+          margin: 8
+        },
+        switchBase: {
+          padding: 1,
+          '&$checked, &$colorPrimary$checked, &$colorSecondary$checked': {
+            transform: 'translateX(16px)',
+            color: '#fff',
+            '& + $track': {
+              opacity: 1,
+              border: 'none'
+            }
           }
+        },
+        thumb: {
+          width: 24,
+          height: 24
+        },
+        track: {
+          borderRadius: 13,
+          border: '1px solid #0C2D48',
+          backgroundColor: '#fafafa',
+          opacity: 1,
+          transition:
+            'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
         }
-      },
-      thumb: {
-        width: 24,
-        height: 24
-      },
-      track: {
-        borderRadius: 13,
-        border: '1px solid #bdbdbd',
-        backgroundColor: '#fafafa',
-        opacity: 1,
-        transition:
-          'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
       }
     }
   }

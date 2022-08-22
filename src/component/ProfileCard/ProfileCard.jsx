@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import './ProfileCard.css'
 const defaultData = {
-  name,
+  name: 'Wilmer',
   posts: 'hello',
-  isOnline: false,
+  isOnline: true,
   bio: 'Web developer',
   location: '',
   technologies: [],
@@ -28,7 +28,7 @@ export const ProfileCard = () => {
       <div className='avatar'>
         <h2>{name}</h2>
         <i className='photo' />
-        <span>{posts} posts</span>
+        <span>{posts} World</span>
         <i className={`status ${isOnline ? 'online' : 'offline'}`} />
       </div>
       <div className={`details ${isBioVisible ? 'bio' : 'technologies'}`}>
@@ -36,7 +36,8 @@ export const ProfileCard = () => {
         <p>{bio !== '' ? bio : 'No bio provided yet'}</p>
         <div>
           <button onClick={handleBioVisibility}>View Skills</button>
-          <p className='joined'>Joined: {creationDate}</p>
+          <p className='joined'>Full Stack MERN</p>
+          {/* <p className='joined'>Joined: {creationDate}</p> */}
         </div>
         <h3>Technologies</h3>
         {technologies.length > 0 && (

@@ -59,10 +59,7 @@ export const Form = () => {
         <Controller
           name='email'
           rules={{
-            required: true,
-            pattern: {
-              message: 'invalid email address'
-            }
+            required: true
           }}
           render={({ field }) => (
             <TextField
