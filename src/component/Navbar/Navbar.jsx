@@ -19,23 +19,29 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useFirebase } from 'src/context/FirebaseContext'
 import { ColorModeContext } from 'src/context/ThemeContext'
 import { searchInputUser, signOutAction } from 'src/redux/userDuck'
 import { Loading } from '../Loading/Loading'
+import { DrawerNavbar } from './DrawerNavbar'
 import { MenuNavbar } from './MenuNavbar'
 import './Navbar.css'
-import { DrawerNavbar } from './DrawerNavbar'
 export const Navbar = () => {
+  const navigate = useNavigate()
   // Drawer
-  // eslint-disable-next-line no-unused-vars
-  const [profileOpen, setProfileOpen] = useState(false)
+
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(null)
+  const [anchor, setAnchor] = useState(null)
+
   const handleProfileOpen = (e) => {
-    e.preventDefault()
+    // setProfileOpen((prevOpen) => (prevOpen === true ? false : true))
+
     setProfileOpen((prevMode) => (prevMode === true ? false : true))
+    setAnchor(e.currentTarget)
   }
+
   const onDrawerButtonClick = (e) => {
     e.preventDefault()
     setDrawerOpen((prevMode) => (prevMode === true ? false : true))
@@ -55,6 +61,7 @@ export const Navbar = () => {
 
   const handleClick = (e) => {
     e.preventDefault()
+    navigate('/blogs')
     dispatch(searchInputUser(inputValue))
   }
   const colorMode = useContext(ColorModeContext)
@@ -83,12 +90,13 @@ export const Navbar = () => {
               <Typography
                 variant='h6'
                 noWrap
-                component='a'
-                href='/'
+                component={NavLink}
+                to='/'
                 sx={{
                   mr: 1,
                   ml: 1,
                   display: 'flex',
+
                   fontWeight: 700,
                   alignItems: 'center',
                   color: 'inherit',
@@ -134,12 +142,14 @@ export const Navbar = () => {
                       aria-label='show more'
                       aria-haspopup='true'
                       color='inherit'
+                      aria-controls={open ? 'composition-menu' : undefined}
+                      aria-expanded={open ? 'true' : undefined}
                       onClick={handleProfileOpen}>
                       <Badge badgeContent={17} color='secondary'>
                         <MoreVertIcon />
                       </Badge>
 
-                      {profileOpen && <MenuNavbar profileOpen={profileOpen} />}
+                      {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
                     </IconButton>
                   </div>
                 </Box>

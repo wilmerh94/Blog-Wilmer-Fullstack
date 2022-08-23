@@ -100,6 +100,14 @@ export const searchInputUser = (action) => async (dispatch) => {
   }
 }
 export const blogData = () => async (dispatch, getState) => {
+  if (localStorage.getItem('searchInput')) {
+    dispatch({
+      type: BLOG_DATA,
+      payload: JSON.parse(localStorage.getItem('searchInput')) // I'm making JSON a easy way to read after use stringify
+    })
+    return
+  }
+
   try {
     const { searchInput } = getState().user
     const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=5b690c9a6983114519ab5e366c864743&lang=en`
@@ -107,6 +115,7 @@ export const blogData = () => async (dispatch, getState) => {
     const response = await axios.get(blog_url)
     console.log(response)
     dispatch({ type: BLOG_DATA, payload: response.data })
+    localStorage.setItem('searchInput', JSON.stringify(response.data))
   } catch (error) {
     console.log(error)
   }

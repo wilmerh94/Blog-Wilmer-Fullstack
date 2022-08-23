@@ -8,7 +8,7 @@ export const Projects = () => {
   const [idEdit, setIdEdit] = useState()
 
   useEffect(() => {
-    console.log('getData')
+    console.log('shopping')
 
     getData('shopping')
   }, [])

@@ -1,6 +1,7 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import MailIcon from '@mui/icons-material/Mail'
 import NotificationsIcon from '@mui/icons-material/Notifications'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import {
   Avatar,
   Badge,
@@ -16,9 +17,8 @@ import { Box } from '@mui/system'
 import { NavLink } from 'react-router-dom'
 import { useFirebase } from 'src/context/FirebaseContext'
 
-export const MenuNavbar = ({ profileOpen }) => {
+export const MenuNavbar = ({ profileOpen, anchor }) => {
   const { user } = useFirebase()
-
   return (
     <Menu
       MenuListProps={{
@@ -37,7 +37,8 @@ export const MenuNavbar = ({ profileOpen }) => {
       id='primary-search-account-menu'
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={profileOpen}>
+      open={Boolean(profileOpen)}
+      anchorEl={anchor}>
       <Box
         sx={{
           display: 'flex',
@@ -60,6 +61,18 @@ export const MenuNavbar = ({ profileOpen }) => {
             </ListSubheader>
           }>
           {[
+            {
+              text: 'Checkout',
+              icon: (
+                <ShoppingCartIcon
+                  sx={{
+                    paddingLeft: 0,
+                    marginLeft: '4.5px'
+                  }}
+                />
+              ),
+              badge: '0'
+            },
             {
               text: 'Messages',
               icon: (
@@ -115,7 +128,11 @@ export const MenuNavbar = ({ profileOpen }) => {
                   alignItems='center'
                   component={NavLink}
                   to={path}>
-                  <Badge badgeContent={badge} sx={{ mr: 1, ml: 0, pl: 0 }} color='secondary'>
+                  <Badge
+                    badgeContent={badge}
+                    invisible={badge > 0 ? false : true}
+                    sx={{ mr: 1, ml: 0, pl: 0 }}
+                    color='secondary'>
                     {icon}
                   </Badge>
                 </ListItemButton>
