@@ -4,7 +4,8 @@ export const DarkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#051622'
+      main: '#051622',
+      secondary: 'rgba(0, 0, 0, 0.5)'
     },
     secondary: {
       main: '#1BA098'
@@ -15,7 +16,7 @@ export const DarkTheme = createTheme({
     },
     text: {
       primary: '#fcfffc',
-      secondary: '#fcfffc'
+      secondary: 'rgba(0, 0, 0, 0.6)'
     },
     info: {
       main: '#fcfffc'
@@ -37,6 +38,7 @@ export const DarkTheme = createTheme({
   components: {
     // MuiInput: {
     //   styleOverrides: {
+
     //     underline: {
     //       color: 'orange', // input color focus of not
     //       backgroundColor: 'orange', // background color of whole input

@@ -25,7 +25,7 @@ import { Login } from './pages/Login/Login'
 function App() {
   const { isSignedIn } = useSelector((store) => store.user)
   return (
-    <>
+    <div style={{ position: 'relative', minHeight: '100vh' }}>
       <Navbar />
       <div className='App'>
         <Routes>
@@ -62,13 +62,13 @@ function App() {
             element={<Checkout />}
           />
           <Route
-            path='/sign-in'
+            path='/sign-up'
             element={<RegisterForm />}
           />
         </Routes>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 

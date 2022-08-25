@@ -69,11 +69,10 @@ export const Navbar = () => {
   return (
     <Box sx={{ display: 'flex', position: 'sticky', zIndex: '100' }}>
       <Tooltip title={`<AppBar color="primary">`} placement='left' arrow>
-        <AppBar position='static'>
+        <AppBar position='static' bgcolor='primary.secondary'>
           <Container
             maxWidth='xl'
             sx={{
-              backgroundColor: 'rgba(59, 113, 151, 0.22)',
               width: 'max-content',
               display: 'flex',
               left: '50%',
@@ -184,8 +183,8 @@ export const Navbar = () => {
                     size='small'
                     sx={{ display: isSignedIn && 'none' }}
                     component={NavLink}
-                    to='/sign-in'>
-                    Sign In
+                    to='/sign-up'>
+                    Sign up
                   </Button>
                   <Button color='inherit' size='small' component={NavLink} to='/contact'>
                     Contact

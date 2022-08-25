@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
 import store from './store/_index'
+import { ToastContainer } from 'react-toastify'
 
 import ChatProvider from './context/ChatContext'
 import { FirebaseProvider } from './context/FirebaseContext'
@@ -17,14 +18,25 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <FirebaseProvider>
+      <ToastContainer
+        position='top-center'
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Provider store={store}>
-        <ChatProvider>
+        <BrowserRouter>
           <ColorProvider>
-            <BrowserRouter>
+            <ChatProvider>
               <App />
-            </BrowserRouter>
+            </ChatProvider>
           </ColorProvider>
-        </ChatProvider>
+        </BrowserRouter>
       </Provider>
     </FirebaseProvider>
   </React.StrictMode>

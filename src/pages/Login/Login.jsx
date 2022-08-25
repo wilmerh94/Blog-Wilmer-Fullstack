@@ -95,7 +95,7 @@ export const Login = () => {
           render={({ field }) => (
             <TextField
               {...field}
-              placeholder='Email'
+              placeholder='Password'
               margin='normal'
               fullWidth
               type={showPassword ? 'text' : 'password'}

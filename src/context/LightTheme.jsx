@@ -4,7 +4,8 @@ export const LightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#3b7197'
+      main: '#3b7197',
+      secondary: 'rgba(59, 113, 151, 0.22)'
     },
     secondary: {
       main: '#e76e3c'
@@ -95,7 +96,8 @@ export const LightTheme = createTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: '#ececec'
+          color: '#ececec',
+          textShadow: '0 6px 20px -3px rgba(0,0,0,0.3)'
         },
         'MuiTypography-caption': { color: '#ececec' }
       }

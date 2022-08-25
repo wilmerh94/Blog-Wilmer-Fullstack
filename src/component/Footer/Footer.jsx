@@ -18,8 +18,11 @@ export const Footer = () => {
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'static',
+        position: 'absolute',
+        right: '0',
+        left: '0',
         bottom: '0',
+
         width: '100% !important',
         height: '5vh !important',
         paddingTop: 8,

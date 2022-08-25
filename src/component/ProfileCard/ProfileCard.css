@@ -1,6 +1,8 @@
 /* background: url(
   'https://avatars.dicebear.com/4.5/api/avataaars/.svg?eyebrow[]=up&mouth[]=smile'
   ) */
+/* 'linear-gradient(to bottom right,rgba(255, 255, 255, 0.392),rgba(255, 255, 255, 0))' */
+
 .ProfileCard {
   display: flex;
 

@@ -1,12 +1,15 @@
-/* eslint-disable no-unused-vars */
-import Google from '@mui/icons-material/Google'
-import { Box, Button, TextField } from '@mui/material'
-import { useState } from 'react'
+import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useFirebase } from 'src/context/FirebaseContext'
+import { errorsFirebase } from 'src/utils/errorsFirebase'
+import { FormError } from '../Error/FormError'
 import './RegisterForm.css'
-const googleLogoURL = 'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg'
+import { formValidate } from 'src/utils/formValidate'
+import { FormInput } from './FormInput'
+// const googleLogoURL = 'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg'
 const defaultValues = {
   displayName: '',
   email: '',
@@ -20,135 +23,129 @@ export const RegisterForm = () => {
     reset,
     control,
     getValues,
+    setError,
     formState: { errors }
   } = useForm({ defaultValues })
   const { registerFB } = useFirebase()
-  const [formComplete, setFormComplete] = useState(defaultValues)
+  const { required, patternEmail, minLength, validateTrim, validateEquals } = formValidate()
 
   const onSubmit = async ({ email, password, displayName }) => {
     try {
-      setFormComplete(email, password, displayName)
-
       registerFB(email, password, displayName)
       navigate('/')
       reset()
     } catch (error) {
-      console.log(error)
+      console.log(error.code)
+      setError('firebase', { message: errorsFirebase(error.code) })
     }
   }
-  // useEffect(() => {
-  //   console.log(formComplete)
-  //   const { email, password } = formComplete
-  //   registerFB(email, password)
-  //   reset()
-  // }, [])
 
   return (
     <Box
       sx={{
-        marginTop: 20,
-        marginBottom: 8,
+        marginTop: 15,
+        marginBottom: 30,
         display: 'flex',
         flexDirection: 'column',
+        alignContent: 'space-around',
+        justifyContent: 'space-around',
         alignItems: 'center'
       }}
-      color='white'
-      component='form'
-      onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Do not have an account yet?</label>
-      </div>
+      color='white'>
+      <Avatar>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component='h1' variant='h5'>
+        Sign up
+      </Typography>
+      <Typography component='label' variant='subtitle2'>
+        Do not have an account yet?
+      </Typography>
+      <FormError error={errors.firebase} />
 
-      <div className='container'>
+      <Box
+        sx={{
+          m: '0 auto',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          alignContent: 'space-around',
+          justifyContent: 'space-around',
+          maxWidth: '500px'
+        }}
+        color='white'
+        component='form'
+        onSubmit={handleSubmit(onSubmit)}>
+        <FormInput></FormInput>
         <Controller
           render={({ field }) => (
             <TextField
               {...field}
               placeholder='Full name'
               type='text'
-              sx={{ m: 1, width: '60%' }}
+              sx={{ m: 1 }}
               // onChange={() => console.log(props)}
             />
           )}
           name='displayName'
           control={control}
-          rules={{ required: true, maxLength: 80 }}
+          rules={{ required, minLength }}
         />
-        {errors.displayName && errors.displayName.message}
+        <FormError error={errors.displayName} />
 
         <Controller
           name='email'
-          rules={{
-            required: true
-          }}
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='Email address'
-              type='email'
-              sx={{ m: 1, width: '60%' }}
-            />
+            <TextField {...field} placeholder='Email address' type='email' sx={{ m: 1 }} />
           )}
           control={control}
+          rules={{
+            required,
+            pattern: patternEmail,
+            minLength
+          }}
         />
+        <FormError error={errors.email} />
 
-        {errors.email && errors.email.message}
         <Controller
           name='password'
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='Password'
-              type='password'
-              sx={{ m: 1, width: '60%' }}
-            />
+            <TextField {...field} placeholder='Password' type='password' sx={{ m: 1 }} />
           )}
           control={control}
           rules={{
-            setValuesAs: (value) => value.trim(),
-            minLength: {
-              value: 6,
-              message: 'Minimum 6 characters required'
-            },
-            validate: {
-              trim: (value) => {
-                if (!value.trim()) {
-                  return 'do not be a clown'
-                }
-                return true
-              }
-            }
+            minLength,
+            validate: validateTrim
           }}
           // rules={{ validate: (value) => value !== 'admin' || 'Nice try!' }}
         />
+        <FormError error={errors.password} />
+
         <Controller
           name='rePassword'
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='rePassword'
-              type='password'
-              sx={{ m: 1, width: '60%' }}
-            />
+            <TextField {...field} placeholder='rePassword' type='password' sx={{ m: 1 }} />
           )}
           control={control}
           rules={{
-            setValuesAs: (value) => value.trim(),
-            validate: {
-              equals: (value) => value === getValues('password') || 'Password are not the same!'
-            }
+            validate: validateEquals(getValues)
           }}
           // rules={{ validate: (value) => value !== 'admin' || 'Nice try!' }}
         />
-
-        {errors.password && errors.password.message}
-        <button className='button buttonBlack' type='button '>
-          Reset Form
-        </button>
-        <button className='button' type='submit'>
-          Submit
-        </button>
-      </div>
+        <FormError error={errors.rePassword} />
+        <Grid container justifyContent='space-around' alignItems='center'>
+          <Grid item>
+            <Button type='button' variant='outlined' color='error'>
+              Reset
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button type='submit' variant='contained'>
+              Submit
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   )
 }

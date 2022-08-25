@@ -1,11 +1,15 @@
 /* CHAT STYLES */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
 body {
   background-image: url('./assets/subtle-prism.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
 }
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 70px; /* height of sticky header */
@@ -30,7 +34,7 @@ html {
 }
 
 .ce-chat-subtitle-text {
-  color: #595959 !important;
+  color: rgba(59, 113, 151, 0) !important;
 }
 
 .ce-chat-form-container {
