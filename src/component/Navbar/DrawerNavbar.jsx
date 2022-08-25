@@ -18,11 +18,15 @@ import AssignmentIcon from '@mui/icons-material/Assignment'
 import LocalLibraryIcon from '@mui/icons-material/LocalLibrary'
 import ContactMailIcon from '@mui/icons-material/ContactMail'
 import { NavLink } from 'react-router-dom'
-export const DrawerNavbar = ({ drawerOpen }) => {
+export const DrawerNavbar = ({ drawerOpen, setDrawerOpen }) => {
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen)
+  }
   return (
     <Drawer
       variant='temporary'
       open={drawerOpen}
+      onClose={handleDrawerToggle}
       ModalProps={{
         disablePortal: true,
         BackdropProps: {

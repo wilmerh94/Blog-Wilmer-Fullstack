@@ -11,9 +11,9 @@ import {
   ListItemButton,
   ListItemText,
   ListSubheader,
-  Menu
+  Menu,
+  Box
 } from '@mui/material'
-import { Box } from '@mui/system'
 import { NavLink } from 'react-router-dom'
 import { useFirebase } from 'src/context/FirebaseContext'
 
@@ -50,13 +50,12 @@ export const MenuNavbar = ({ profileOpen, anchor }) => {
         }}>
         {/* Primary List */}
         <List
-          component='nav'
           aria-labelledby='nested-list-subheader'
           sx={{
             width: '100%'
           }}
           subheader={
-            <ListSubheader component='div' id='nested-list-subheader'>
+            <ListSubheader sx={{ backgroundColor: 'inherit' }} id='nested-list-subheader'>
               Welcome {user.displayName}!
             </ListSubheader>
           }>

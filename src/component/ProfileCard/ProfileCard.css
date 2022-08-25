@@ -1,16 +1,25 @@
-/* background: url('https://avatars.dicebear.com/4.5/api/avataaars/.svg?eyebrow[]=up&mouth[]=smile') */
+/* background: url(
+  'https://avatars.dicebear.com/4.5/api/avataaars/.svg?eyebrow[]=up&mouth[]=smile'
+  ) */
 .ProfileCard {
   display: flex;
+
   justify-content: stretch;
   width: 440px;
   height: 220px;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.392),
+    rgba(255, 255, 255, 0)
+  );
+  backdrop-filter: blur(10px);
+
   border-radius: 25px;
-  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.5);
 }
 .ProfileCard .avatar {
   border-radius: 25px 0 0 25px;
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -18,7 +27,6 @@
   align-items: center;
   flex-shrink: 0;
   width: 150px;
-  background: linear-gradient(#de685e, #ee786e);
 }
 .ProfileCard .avatar .photo {
   width: 90px;
@@ -40,7 +48,7 @@
   font-weight: 600;
   text-transform: uppercase;
   color: #fff;
-  background-color: #bf5a51;
+  background-color: #3b7197;
   border-radius: 13px;
 }
 .ProfileCard .avatar span {
@@ -50,7 +58,7 @@
   font-weight: 600;
   text-transform: uppercase;
   color: #fff;
-  background-color: #bf5a51;
+  background-color: #3b7197;
   border-radius: 11px;
 }
 .ProfileCard .avatar .status {
@@ -70,6 +78,8 @@
 }
 .ProfileCard .details {
   display: flex;
+  color: #fff;
+
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
@@ -127,6 +137,7 @@
   outline: none;
   text-decoration: underline;
   cursor: pointer;
+  color: #fff;
 }
 .ProfileCard .details button:after {
   content: '⇛';

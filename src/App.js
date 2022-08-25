@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 // Components
 import { Blog } from './component/Blog/Blog'
+import { Footer } from './component/Footer/Footer'
 import { Navbar } from './component/Navbar/Navbar'
 import { PokeDeck } from './component/PokeDeck/PokeDeck'
 
@@ -23,43 +24,46 @@ import { Login } from './pages/Login/Login'
 function App() {
   const { isSignedIn } = useSelector((store) => store.user)
   return (
-    <div className='App'>
+    <>
       <Navbar />
-      <Routes>
-        <Route
-          path='/'
-          element={<Home />}
-        />
-        <Route
-          path='/login'
-          element={<Login />}
-        />
-        <Route
-          path='/contact'
-          element={<ContactForm />}
-        />
-        <Route
-          path='/chat'
-          element={<Chat />}
-        />
-        <Route
-          path='/blogs'
-          element={isSignedIn && <Blog />}
-        />
-        <Route
-          path='/poke-deck'
-          element={<PokeDeck />}
-        />
-        <Route
-          path='/dashboard'
-          element={<Dashboard />}
-        />
-        <Route
-          path='/checkout'
-          element={<Checkout />}
-        />
-      </Routes>
-    </div>
+      <div className='App'>
+        <Routes>
+          <Route
+            path='/'
+            element={<Home />}
+          />
+          <Route
+            path='/login'
+            element={<Login />}
+          />
+          <Route
+            path='/contact'
+            element={<ContactForm />}
+          />
+          <Route
+            path='/chat'
+            element={<Chat />}
+          />
+          <Route
+            path='/blogs'
+            element={isSignedIn && <Blog />}
+          />
+          <Route
+            path='/poke-deck'
+            element={<PokeDeck />}
+          />
+          <Route
+            path='/dashboard'
+            element={<Dashboard />}
+          />
+          <Route
+            path='/checkout'
+            element={<Checkout />}
+          />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   )
 }
 

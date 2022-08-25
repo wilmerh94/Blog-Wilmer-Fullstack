@@ -2,26 +2,27 @@ import { createTheme } from '@mui/material/styles'
 
 export const DarkTheme = createTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
-      main: '#0C2D48'
+      main: '#051622'
     },
     secondary: {
-      main: '#e76e3c'
+      main: '#1BA098'
     },
     background: {
-      paper: '#0C2D48',
-      default: '#145DA0'
+      paper: '#040f0f',
+      default: '#040f0f'
     },
     text: {
-      primary: '#0C2D48'
+      primary: '#fcfffc',
+      secondary: '#fcfffc'
     },
     info: {
-      main: '#2196f3'
+      main: '#fcfffc'
     },
     action: {
-      hover: '#2196f3',
-      focus: '#2196f3'
+      hover: '#DEB992',
+      focus: '#DEB992'
     }
   },
   typography: {
@@ -34,26 +35,26 @@ export const DarkTheme = createTheme({
     borderRadius: 6
   },
   components: {
-    MuiInput: {
-      styleOverrides: {
-        underline: {
-          color: 'orange', // input color focus of not
-          backgroundColor: 'orange', // background color of whole input
-          '&:hover:not($disabled):after': {
-            backgroundColor: 'orange' // its when its hover and input is focused
-          },
-          '&:hover:not($disabled):before': {
-            backgroundColor: 'orange' // its when you hover and input is not focused
-          },
-          '&:after': {
-            backgroundColor: 'orange' // when input is focused, Its just for example. Its better to set this one using primary color
-          },
-          '&:before': {
-            backgroundColor: 'orange' // when input is not touched
-          }
-        }
-      }
-    },
+    // MuiInput: {
+    //   styleOverrides: {
+    //     underline: {
+    //       color: 'orange', // input color focus of not
+    //       backgroundColor: 'orange', // background color of whole input
+    //       '&:hover:not($disabled):after': {
+    //         backgroundColor: 'orange' // its when its hover and input is focused
+    //       },
+    //       '&:hover:not($disabled):before': {
+    //         backgroundColor: 'orange' // its when you hover and input is not focused
+    //       },
+    //       '&:after': {
+    //         backgroundColor: 'orange' // when input is focused, Its just for example. Its better to set this one using primary color
+    //       },
+    //       '&:before': {
+    //         backgroundColor: 'orange' // when input is not touched
+    //       }
+    //     }
+    //   }
+    // },
     MuiSwitch: {
       styleOverrides: {
         root: {

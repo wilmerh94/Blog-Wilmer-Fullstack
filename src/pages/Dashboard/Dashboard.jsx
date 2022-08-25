@@ -1,28 +1,50 @@
+/* eslint-disable no-unused-vars */
+import {
+  Avatar,
+  Box,
+  Modal,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+  Toolbar,
+  Typography
+} from '@mui/material'
+import Divider from '@mui/material/Divider'
 import { useEffect, useState } from 'react'
 import { Loading } from 'src/component/Loading/Loading'
 import { useFirestore } from 'src/Hooks/useFirestore'
-import {
-  TableContainer,
-  Typography,
-  Table,
-  Paper,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Toolbar,
-  Box
-} from '@mui/material'
-import Divider from '@mui/material/Divider'
 
 import IconButton from '@mui/material/IconButton'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 
-import { formatDistanceToNow } from 'date-fns'
 import EditIcon from '@mui/icons-material/Edit'
+import { formatDistanceToNow } from 'date-fns'
+import { ModalUser } from 'src/component/ModalUser/ModalUser'
+import styled from '@emotion/styled'
+const StyleModal = styled(Modal)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#fcfffc'
+})
+const UserBox = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+  marginBottom: '20px'
+})
+
 export const Dashboard = () => {
   const { loading, data, error, getData, addData, deleteData, updateData } = useFirestore()
+  const [open, setOpen] = useState(false)
+
   const [text, setText] = useState('')
   const [idEdit, setIdEdit] = useState()
 
@@ -54,6 +76,7 @@ export const Dashboard = () => {
   const handleEdit = async (row) => {
     setText(row.displayName)
     setIdEdit(true)
+    setOpen(true)
   }
 
   return (
@@ -63,7 +86,8 @@ export const Dashboard = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          alignContent: 'center'
+          alignContent: 'center',
+          height: '100vh'
         }}>
         <Box
           sx={{
@@ -77,8 +101,7 @@ export const Dashboard = () => {
                 borderRadius: '10px 10px 0px 0',
                 minHeight: { md: '46px' },
                 pl: { sm: 2 },
-                pr: { xs: 1, sm: 1 },
-                backgroundColor: '#ececec'
+                pr: { xs: 1, sm: 1 }
               }}>
               <Typography sx={{ flex: '1 1 100%' }} variant='h6' id='tableTitle' component='div'>
                 Users
@@ -96,6 +119,7 @@ export const Dashboard = () => {
                     <TableCell sx={{ fontWeight: 700 }}>Email</TableCell>
                     <TableCell sx={{ fontWeight: 700 }}>Status</TableCell>
                     <TableCell sx={{ fontWeight: 700 }}>Created</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -136,7 +160,48 @@ export const Dashboard = () => {
               </Table>
             </TableContainer>
           </Paper>
+          <ModalUser />
         </Box>
+        <StyleModal
+          open={open}
+          onClose={(e) => setOpen(false)}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'>
+          <Box
+            component='form'
+            width={400}
+            height={280}
+            p={3}
+            borderRadius={5}
+            sx={{
+              backgroundColor: localStorage.getItem('theme') !== 'light' ? 'white' : '#051622'
+            }}>
+            <Typography id='modal-modal-title' variant='h6' textAlign='center'>
+              Edit User
+            </Typography>
+            <UserBox>
+              <Avatar
+                sx={{ width: 30, height: 30 }}
+                src='https://avatars.dicebear.com/4.5/api/avataaars/.svg?eyebrow[]=up&mouth[]=smile'
+              />
+              <Typography id='modal-modal-title' variant='span' fontWeight={500} textAlign='center'>
+                Wilmer
+              </Typography>
+            </UserBox>
+            <TextField
+              sx={{ width: '100%' }}
+              id='standard-static'
+              label='Name'
+              placeholder='Enter Full name*'
+              variant='standard'
+              fullWidth
+              type='text'
+              onChange={(e) => setText(e.target.value)}
+              value={text}
+            />
+            <Stack direction='row' gap={1} mt={2} mb={3}></Stack>
+          </Box>
+        </StyleModal>
       </Box>
       <form onSubmit={handleSubmit}>
         <input

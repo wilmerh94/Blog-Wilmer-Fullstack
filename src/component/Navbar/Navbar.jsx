@@ -67,42 +67,57 @@ export const Navbar = () => {
   const colorMode = useContext(ColorModeContext)
   if (loading) return <Loading />
   return (
-    <Tooltip title={`<AppBar color="primary">`} placement='left' arrow>
-      <AppBar position='static'>
-        <Container maxWidth='xl'>
-          <Toolbar
-            disableGutters
+    <Box sx={{ display: 'flex', position: 'sticky', zIndex: '100' }}>
+      <Tooltip title={`<AppBar color="primary">`} placement='left' arrow>
+        <AppBar position='static'>
+          <Container
+            maxWidth='xl'
             sx={{
+              backgroundColor: 'rgba(59, 113, 151, 0.22)',
+              width: 'max-content',
               display: 'flex',
-              justifyContent: 'space-between'
+              left: '50%',
+              transform: 'translateX(-50%)',
+
+              position: 'fixed',
+
+              zIndex: '100',
+              borderRadius: '3rem',
+              backdropFilter: 'blur(15px)'
             }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <IconButton
-                edge='start'
-                sx={{ mr: 0 }}
-                color='inherit'
-                aria-label='open drawer'
-                onClick={onDrawerButtonClick}>
-                {drawerOpen && <DrawerNavbar drawerOpen={drawerOpen} />}
-                <MenuIcon />
-              </IconButton>
+            <Toolbar
+              disableGutters
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between'
+              }}>
+              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <IconButton
+                  edge='start'
+                  sx={{ mr: 0 }}
+                  color='inherit'
+                  aria-label='open drawer'
+                  onClick={onDrawerButtonClick}>
+                  <MenuIcon />
+                </IconButton>
 
-              <Typography
-                variant='h6'
-                noWrap
-                component={NavLink}
-                to='/'
-                sx={{
-                  mr: 1,
-                  ml: 1,
-                  display: 'flex',
+                <Typography
+                  variant='h6'
+                  noWrap
+                  component={NavLink}
+                  to='/'
+                  sx={{
+                    mr: 1,
+                    ml: 1,
+                    display: 'flex',
 
-                  fontWeight: 700,
-                  alignItems: 'center',
-                  color: 'inherit',
-                  textDecoration: 'none'
-                }}>
-                Will Blogs
+                    fontWeight: 700,
+                    alignItems: 'center',
+                    color: 'inherit',
+                    textDecoration: 'none'
+                  }}>
+                  Will Blogs
+                </Typography>
                 <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color='inherit'>
                   {localStorage.getItem('theme') === 'light' ? (
                     <Brightness7Icon />
@@ -110,76 +125,78 @@ export const Navbar = () => {
                     <Brightness4Icon />
                   )}
                 </IconButton>
-              </Typography>
-            </Box>
-            {user ? (
-              <>
-                <div className='blog__search'>
-                  <InputBase
-                    sx={{ ml: 1, flex: 1, color: 'inherit' }}
-                    placeholder='Search for a blogs'
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    inputProps={{ 'aria-label': 'Search' }}
-                  />
-                  <IconButton color='inherit' onClick={handleClick} size='small'>
-                    <SearchIcon />
-                  </IconButton>
-                </div>
-
-                <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-                  <Button
-                    onClick={logout}
-                    color='inherit'
-                    size='small'
-                    sx={{ m: 0, p: 0 }}
-                    component={NavLink}
-                    to='/'>
-                    Logout
-                  </Button>
-                  <div>
-                    <IconButton
-                      aria-label='show more'
-                      aria-haspopup='true'
-                      color='inherit'
-                      aria-controls={open ? 'composition-menu' : undefined}
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleProfileOpen}>
-                      <Badge badgeContent={17} color='secondary'>
-                        <MoreVertIcon />
-                      </Badge>
-
-                      {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
+              </Box>
+              {user ? (
+                <>
+                  <div className='blog__search'>
+                    <InputBase
+                      sx={{ ml: 1, flex: 1, color: 'inherit' }}
+                      placeholder='Search for a blogs'
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      inputProps={{ 'aria-label': 'Search' }}
+                    />
+                    <IconButton color='inherit' onClick={handleClick} size='small'>
+                      <SearchIcon />
                     </IconButton>
                   </div>
+
+                  <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+                    <Button
+                      onClick={logout}
+                      variant='outlined'
+                      color='inherit'
+                      size='small'
+                      sx={{ mx: 0, px: 0 }}
+                      component={NavLink}
+                      to='/'>
+                      Logout
+                    </Button>
+                    <div>
+                      <IconButton
+                        aria-label='show more'
+                        aria-haspopup='true'
+                        color='inherit'
+                        aria-controls={open ? 'composition-menu' : undefined}
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleProfileOpen}>
+                        <Badge badgeContent={17} color='secondary'>
+                          <MoreVertIcon />
+                        </Badge>
+
+                        {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
+                      </IconButton>
+                    </div>
+                  </Box>
+                </>
+              ) : (
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                  <Button
+                    color='inherit'
+                    size='small'
+                    sx={{ display: isSignedIn && 'none' }}
+                    component={NavLink}
+                    to='/login'>
+                    Login
+                  </Button>
+                  <Button
+                    color='inherit'
+                    size='small'
+                    sx={{ display: isSignedIn && 'none' }}
+                    component={NavLink}
+                    to='/sign-in'>
+                    Sign In
+                  </Button>
+                  <Button color='inherit' size='small' component={NavLink} to='/contact'>
+                    Contact
+                  </Button>
                 </Box>
-              </>
-            ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-                <Button
-                  color='inherit'
-                  size='small'
-                  sx={{ display: isSignedIn && 'none' }}
-                  component={NavLink}
-                  to='/login'>
-                  Login
-                </Button>
-                <Button
-                  color='inherit'
-                  size='small'
-                  sx={{ display: isSignedIn && 'none' }}
-                  component={NavLink}
-                  to='/sign-in'>
-                  Sign In
-                </Button>
-                <Button color='inherit' size='small' component={NavLink} to='/contact'>
-                  Contact
-                </Button>
-              </Box>
-            )}
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </Tooltip>
+              )}
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </Tooltip>
+      {drawerOpen && <DrawerNavbar drawerOpen={drawerOpen} setDrawerOpen={setDrawerOpen} />}
+    </Box>
   )
 }

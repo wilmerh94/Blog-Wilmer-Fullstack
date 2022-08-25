@@ -6,7 +6,7 @@
   padding: 0px 80px;
   background: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  background: #1b1b1d;
+  background: rgba(59, 113, 151, 0.702);
   color: white;
 }
 
@@ -50,14 +50,13 @@
 }
 
 .blog__search {
-  flex: 1;
   width: 100%;
   display: flex;
   padding: 5px 0px;
   margin: 0px 90px;
-  justify-content: space-between;
   background: rgba(156, 160, 163, 0.507);
-  border-radius: 5px;
+  border-radius: 10px;
+  position: relative;
 }
 
 .search {
