@@ -45,10 +45,7 @@ export const ContactForm = () => {
       <Typography component='h1' variant='h5'>
         Contact me.
       </Typography>
-      <Typography
-        variant='caption'
-        gutterBottom
-        sx={{ textDecoration: 'none', color: 'rgba(118, 118, 118, 0.94)' }}>
+      <Typography variant='caption' gutterBottom sx={{ textDecoration: 'none' }}>
         To arrange a meeting, send me a message.
       </Typography>
       {messageOnSubmit && (

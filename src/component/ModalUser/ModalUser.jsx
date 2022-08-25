@@ -25,11 +25,11 @@ export const ModalUser = () => {
         onClick={(e) => setOpen(true)}
         title='Add'
         sx={{ position: 'fixed', bottom: 20, left: { xs: 'cal(50%-25px)', md: 20 } }}>
-        <Stack direction='row' gap={1}>
-          <Fab>
+        <Stack direction='row' gap={1} color='inherit'>
+          <Fab color='primary'>
             <AddIcon />
           </Fab>
-          <Fab>
+          <Fab color='primary'>
             <EditIcon />
           </Fab>
         </Stack>

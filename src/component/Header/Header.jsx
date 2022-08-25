@@ -14,7 +14,7 @@ export const Header = () => {
 
         <div
           style={{
-            background: 'linear-gradient(#3b7197, transparent)',
+            background: 'linear-gradient(#3b7197, transparent) no-repeat bottom',
             backgroundSize: '70% 90%',
             width: '20rem',
             height: '20rem',

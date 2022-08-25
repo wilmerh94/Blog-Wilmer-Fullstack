@@ -67,7 +67,12 @@ export const DrawerNavbar = ({ drawerOpen, setDrawerOpen }) => {
       <List
         sx={{ width: '100%', maxWidth: 360 }}
         subheader={
-          <ListSubheader component='div' id='nested-list-subheader'>
+          <ListSubheader
+            sx={{
+              color: '#ececec'
+            }}
+            component='div'
+            id='nested-list-subheader'>
             Saved reports
           </ListSubheader>
         }>

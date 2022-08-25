@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
 import { Header } from 'src/component/Header/Header'
 import { ProfileCard } from 'src/component/ProfileCard/ProfileCard'
-import { Form } from 'src/component/RegisterForm/RegisterForm'
 import './Home.css'
 
 export const Home = () => {
@@ -34,7 +33,6 @@ export const Home = () => {
               We provide high quality online resource for reading blogs. Just sign up and start
               reading some quality blogs.
             </p>
-            <Form />
           </div>
         ) : (
           <div className='login__message'>

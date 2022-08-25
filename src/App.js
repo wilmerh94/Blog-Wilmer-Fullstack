@@ -8,6 +8,7 @@ import { Blog } from './component/Blog/Blog'
 import { Footer } from './component/Footer/Footer'
 import { Navbar } from './component/Navbar/Navbar'
 import { PokeDeck } from './component/PokeDeck/PokeDeck'
+import { RegisterForm } from './component/RegisterForm/RegisterForm'
 
 import { Chat } from './pages/Chat/Chat'
 import { Checkout } from './pages/Checkout/Checkout'
@@ -59,6 +60,10 @@ function App() {
           <Route
             path='/checkout'
             element={<Checkout />}
+          />
+          <Route
+            path='/sign-in'
+            element={<RegisterForm />}
           />
         </Routes>
       </div>

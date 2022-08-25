@@ -11,7 +11,7 @@ export const LightTheme = createTheme({
     },
     background: {
       default: '#ececec',
-      paper: '#ececec'
+      paper: '#3b7197'
     },
     info: {
       main: '#2196f3'
@@ -57,6 +57,62 @@ export const LightTheme = createTheme({
           opacity: 1,
           transition:
             'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& label': {
+            color: '#ececec'
+          },
+          '& label.Mui-focused': {
+            color: '#ececec'
+          },
+          '& .MuiOutlinedInput-root': {
+            input: { color: '#ececec' },
+            '& fieldset': {
+              borderColor: '#ececec'
+            },
+            '&:hover fieldset': {
+              borderColor: '#ececec',
+              borderWidth: '0.15rem'
+            },
+            '&.Mui-focused fieldset': {
+              borderColor: '#ececec'
+            }
+          }
+        }
+      }
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          color: '#ececec'
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: '#ececec'
+        },
+        'MuiTypography-caption': { color: '#ececec' }
+      }
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: '#ececec'
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        '& .MuiFab': {
+          root: {
+            backgroundColor: '#3b7197'
+          }
         }
       }
     }

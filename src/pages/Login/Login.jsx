@@ -10,33 +10,47 @@ import {
   Typography
 } from '@mui/material'
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
-import { useFirebase } from 'src/context/FirebaseContext'
 export const Login = () => {
-  const { loading } = useSelector((store) => store.user)
-  const { loginUserFB } = useFirebase()
-  // eslint-disable-next-line no-unused-vars
   const [showPassword, setShowPassword] = useState(false)
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  })
-  const { email, password } = formData
 
-  const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.id]: e.target.value
-    }))
+  const { loading } = useSelector((store) => store.user)
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  // const { loginUserFB } = useFirebase()
+
+  const onSubmit = (data) => {
+    console.log(data)
+    // loginUserFB(email, password)
   }
 
-  const onSubmit = (e) => {
-    e.preventDefault()
-    loginUserFB(email, password)
-  }
+  // eslint-disable-next-line no-unused-vars
+  // const [showPassword, setShowPassword] = useState(false)
+  // const [formData, setFormData] = useState({
+  //   email: '',
+  //   password: ''
+  // })
+  // const { email, password } = formData
+
+  // const onChange = (e) => {
+  //   setFormData((prevState) => ({
+  //     ...prevState,
+  //     [e.target.id]: e.target.value
+  //   }))
+  // }
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault()
+  //   loginUserFB(email, password)
+  // }
   return (
     <Box
       sx={{
@@ -45,15 +59,54 @@ export const Login = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-      }}>
+      }}
+      color='white'>
       <Avatar sx={{ m: 1 }}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component='h1' variant='h5'>
         Sign in
       </Typography>
-      <Box component='form' sx={{ mt: 1, maxWidth: '450px' }} onSubmit={onSubmit} noValidate>
-        <TextField
+      <Box
+        component='form'
+        sx={{ mt: 1, maxWidth: '450px' }}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate>
+        <Controller
+          name='email'
+          rules={{ required: true, maxLength: 80 }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type='email'
+              placeholder='Email'
+              margin='normal'
+              fullWidth
+
+              // sx={{ m: 1, width: '60%' }}
+            />
+          )}
+          control={control}
+        />
+        {errors.email && errors.email.message}
+        <Controller
+          name='password'
+          rules={{ required: true, maxLength: 80 }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              placeholder='Email'
+              margin='normal'
+              fullWidth
+              type={showPassword ? 'text' : 'password'}
+              // sx={{ m: 1, width: '60%' }}
+            />
+          )}
+          control={control}
+        />
+        {errors.password && errors.password.message}
+
+        {/* <TextField
           margin='normal'
           required
           fullWidth
@@ -76,12 +129,11 @@ export const Login = () => {
           type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={onChange}
-        />
+        /> */}
         <FormControlLabel
           control={
             <Checkbox
               value='show-password'
-              color='primary'
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           }

@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { getAuth, signInWithCustomToken, signInWithPopup, signOut } from 'firebase/auth'
-import { auth, provider } from 'src/firebase/config'
+import { auth, provider, timestampNow, db } from 'src/firebase/config'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useFetch } from 'src/Hooks/useFetch'
 import { Loading } from 'src/component/Loading/Loading'
+import { doc, setDoc } from 'firebase/firestore'
 
 // Initial Data
 const initialState = {
@@ -49,6 +50,18 @@ export const registerUserAction = () => async (dispatch) => {
   dispatch({ type: LOADING })
   try {
     const res = await signInWithPopup(auth, provider)
+    const user = res.user
+
+    const formDataCopy = {
+      online: true,
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      timestamp: timestampNow
+    }
+
+    await setDoc(doc(db, 'users', user.uid), formDataCopy)
+
     dispatch({
       type: USER_REGISTER,
       payload: {
