@@ -1,24 +1,8 @@
+.App {
+  display: flex;
+  width: 100vw;
+}
 /* CHAT STYLES */
-
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-body {
-  background-image: url('./assets/subtle-prism.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 70px; /* height of sticky header */
-}
-
-::-webkit-scrollbar {
-  display: none;
-}
-
 .ce-chat-list {
   background-color: rgb(210, 210, 210) !important;
 }

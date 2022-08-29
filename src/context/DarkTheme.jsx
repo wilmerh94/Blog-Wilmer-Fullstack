@@ -15,14 +15,18 @@ export const DarkTheme = createTheme({
       default: '#040f0f'
     },
     text: {
-      primary: '#fcfffc',
-      secondary: 'rgba(0, 0, 0, 0.6)'
+      primary: 'rgb(237, 165, 76)',
+      secondary: 'rgba(255, 255, 255, 0.6)'
     },
     info: {
       main: '#fcfffc'
     },
     action: {
+      active: '#DEB992',
       hover: '#DEB992',
+      selected: '#DEB992',
+      disabled: '#DEB992',
+      disabledBackground: '#DEB992',
       focus: '#DEB992'
     }
   },
@@ -36,6 +40,21 @@ export const DarkTheme = createTheme({
     borderRadius: 6
   },
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: '#ececec'
+        }
+      }
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          // color: 'rgb(241, 218, 196)'
+          color: 'rgb(242, 148, 29)'
+        }
+      }
+    },
     // MuiInput: {
     //   styleOverrides: {
 

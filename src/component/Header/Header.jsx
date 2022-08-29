@@ -9,7 +9,8 @@ export const Header = () => {
         alignItems: 'center',
         color: 'rgba(228, 227, 227, 0.944)',
         maxHeight: '80%'
-      }}>
+      }}
+    >
       <CTA />
 
       <div
@@ -29,7 +30,8 @@ export const Header = () => {
           borderRadius: '12rem 12rem 0 0',
           overflow: 'hidden',
           padding: '0 0.5rem 0 0.5rem'
-        }}>
+        }}
+      >
         <img
           src={ME}
           alt=''
@@ -51,7 +53,8 @@ export const Header = () => {
           fontWeight: '900',
           color: 'rgba(228, 227, 227, 0.944)',
           textDecoration: 'underline'
-        }}>
+        }}
+      >
         Wilmer Herrera
       </h1>
       <h5 style={{ fontSize: '20px', margin: 0 }}>
@@ -66,9 +69,10 @@ export const Header = () => {
             fontSize: '15px',
             color: 'rgb(238, 238, 238)',
             fontWeight: '550'
-          }}>
-          Your success will be largely determined by your ability to concentrate single mindedly on
-          one thing at a time
+          }}
+        >
+          Your success will be largely determined by your ability to concentrate single mindedly on one thing
+          at a time
         </p>
       </h5>
       {/* <p>

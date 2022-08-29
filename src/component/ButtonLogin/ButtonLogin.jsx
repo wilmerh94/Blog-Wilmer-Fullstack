@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from '@mui/material'
+import { Box, Button, Stack, useTheme } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,6 +7,7 @@ import { registerUserAction } from 'src/redux/userDuck'
 
 // Button Login with Social Medias and Redux
 export const ButtonLogin = () => {
+  const { palette } = useTheme()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { loading, isSignedIn } = useSelector((store) => store.user)
@@ -22,18 +23,14 @@ export const ButtonLogin = () => {
   return (
     <Box
       sx={{
-        height: 'calc(80vh - 650px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '60%',
-        marginBottom: '20px'
+        width: '100%',
+        marginBottom: '10px'
       }}>
       <Stack
         sx={{
-          width: '70%',
-          height: '60%',
-
           display: 'flex',
           alignItems: 'center'
         }}>
@@ -41,7 +38,6 @@ export const ButtonLogin = () => {
           <Button
             disabled={loading}
             onClick={() => dispatch(registerUserAction())}
-            color='primary'
             sx={{
               backgroundColor: '#df4930',
               width: 'auto',
@@ -64,6 +60,7 @@ export const ButtonLogin = () => {
             startIcon={
               <GoogleIcon
                 sx={{
+                  color: palette.mode === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.7)',
                   width: '20px',
                   height: '20px',
                   alignItems: 'center',
@@ -72,7 +69,7 @@ export const ButtonLogin = () => {
                 }}
               />
             }>
-            SIGN IN WITH GOOGLE
+            SIGN IN
           </Button>
         </Stack>
       </Stack>

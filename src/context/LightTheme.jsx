@@ -11,18 +11,23 @@ export const LightTheme = createTheme({
       main: '#e76e3c'
     },
     background: {
-      default: '#ececec',
-      paper: '#3b7197'
+      default: 'rgba(0, 10, 10)',
+      paper: 'rgba(3, 37, 76,0.95)'
     },
+    text: {
+      primary: 'rgb(237, 165, 76)',
+      secondary: 'rgba(255, 255, 255, 0.9)'
+    },
+
     info: {
       main: '#2196f3'
     }
   },
   typography: {
     h1: {
-      fontFamily: ' "Helvetica", "Arial", sans-serif'
+      fontFamily: '"Playfair Display","Helvetica", "Arial", sans-serif'
     },
-    fontFamily: 'Lora'
+    fontFamily: 'Playfair Display'
   },
   shape: {
     borderRadius: 6

@@ -1,35 +1,52 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import {
-  Avatar,
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  TextField,
-  Typography
-} from '@mui/material'
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from 'react-hook-form'
+// @mui
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { Avatar, Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material'
+// Component
+import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
+// Utils and Redux
+import { errorsFirebase } from 'src/utils/errorsFirebase'
+import { useFirebase } from 'src/context/FirebaseContext'
 import { useSelector } from 'react-redux'
 
-import { Link } from 'react-router-dom'
-import { ButtonLogin } from 'src/component/ButtonLogin/ButtonLogin'
+// ----------------------------------------------------------------------
+
+const defaultValues = {
+  email: '',
+  password: ''
+}
+// ----------------------------------------------------------------------
+
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const { loading } = useSelector((store) => store.user)
   const {
     control,
+    reset,
     handleSubmit,
+    setError,
     formState: { errors }
-  } = useForm()
+  } = useForm({ defaultValues })
 
-  // const { loginUserFB } = useFirebase()
+  const { loginUserFB, user } = useFirebase()
 
-  const onSubmit = (data) => {
-    console.log(data)
-    // loginUserFB(email, password)
+  const onSubmit = ({ email, password }) => {
+    try {
+      loginUserFB(email, password)
+
+      reset()
+
+      if (user) {
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error.code)
+      setError('firebase', { message: errorsFirebase(error.code) })
+    }
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -67,11 +84,7 @@ export const Login = () => {
       <Typography component='h1' variant='h5'>
         Sign in
       </Typography>
-      <Box
-        component='form'
-        sx={{ mt: 1, maxWidth: '450px' }}
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate>
+      <Box component='form' sx={{ mt: 1, maxWidth: '450px' }} onSubmit={handleSubmit(onSubmit)} noValidate>
         <Controller
           name='email'
           rules={{ required: true, maxLength: 80 }}
@@ -132,17 +145,11 @@ export const Login = () => {
         /> */}
         <FormControlLabel
           control={
-            <Checkbox
-              value='show-password'
-              onClick={() => setShowPassword((prevState) => !prevState)}
-            />
+            <Checkbox value='show-password' onClick={() => setShowPassword((prevState) => !prevState)} />
           }
           label='Show Password'
         />
-        <FormControlLabel
-          control={<Checkbox value='remember' color='primary' />}
-          label='Remember me'
-        />
+        <FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
         {!loading && (
           <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
             Sign In
@@ -157,11 +164,7 @@ export const Login = () => {
           <Grid item xs component={Link} to='/' sx={{ textDecoration: 'none', color: 'lightgray' }}>
             Forgot password?
           </Grid>
-          <Grid
-            item
-            component={Link}
-            to='/sign-up'
-            sx={{ textDecoration: 'none', color: 'lightgray' }}>
+          <Grid item component={Link} to='/sign-up' sx={{ textDecoration: 'none', color: 'lightgray' }}>
             {"Don't have an account? Sign Up"}
           </Grid>
         </Grid>

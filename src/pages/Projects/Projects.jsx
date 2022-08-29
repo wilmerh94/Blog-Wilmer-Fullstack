@@ -12,18 +12,15 @@ export const Projects = () => {
 
     getData('shopping')
   }, [])
-  if (loading.getData) return <p>Loading get Data</p>
-  if (error) return <p>{error}</p>
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (idEdit) {
       await updateData('shopping', idEdit, text)
       setIdEdit('')
       setText('')
-
-      return
+    } else {
+      await addData(text, 'shopping')
     }
-    await addData(text, 'shopping')
 
     setText('')
   }
@@ -34,6 +31,9 @@ export const Projects = () => {
     setText(item.name)
     setIdEdit(item.nanoid)
   }
+  if (loading.getData) return <p>Loading get Data</p>
+  if (error) return <p>{error}</p>
+
   return (
     <div>
       <div>Card</div>
@@ -51,19 +51,11 @@ export const Projects = () => {
           value={text}
         />
         {idEdit ? (
-          <LoadingButton
-            loading={loading.updateData}
-            color='secondary'
-            variant='contained'
-            type='submit'>
+          <LoadingButton loading={loading.updateData} color='secondary' variant='contained' type='submit'>
             Edit Name
           </LoadingButton>
         ) : (
-          <LoadingButton
-            loading={loading.addData}
-            color='primary'
-            variant='contained'
-            type='submit'>
+          <LoadingButton loading={loading.addData} color='primary' variant='contained' type='submit'>
             Submit Name
           </LoadingButton>
         )}
@@ -77,7 +69,8 @@ export const Projects = () => {
             color='error'
             variant='outlined'
             type='submit'
-            onClick={() => handleDelete(item.nanoid)}>
+            onClick={() => handleDelete(item.nanoid)}
+          >
             Delete
           </LoadingButton>
           <LoadingButton
@@ -85,7 +78,8 @@ export const Projects = () => {
             color='success'
             variant='contained'
             type='submit'
-            onClick={() => handleEdit(item)}>
+            onClick={() => handleEdit(item)}
+          >
             Edit
           </LoadingButton>
         </div>

@@ -1,11 +1,19 @@
 /* eslint-disable no-unused-vars */
-import { getAuth, signInWithCustomToken, signInWithPopup, signOut } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithCustomToken,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile
+} from 'firebase/auth'
 import { auth, provider, timestampNow, db } from 'src/firebase/config'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useFetch } from 'src/Hooks/useFetch'
 import { Loading } from 'src/component/Loading/Loading'
-import { doc, setDoc } from 'firebase/firestore'
+import { doc, setDoc, updateDoc } from 'firebase/firestore'
 
 // Initial Data
 const initialState = {
@@ -45,6 +53,17 @@ export const userReducer = (state = initialState, action) => {
 }
 
 // Actions. Actions are going to be import to the Component/Page I need to call the action and call it with dispatch
+
+/** Firebase */
+
+/**  Register( Sign in with google)
+ * Reading user (sending info to local storage)
+ * Sign Up with email
+ * Sign Out
+ */
+
+/** Sign in with google*/
+
 export const registerUserAction = () => async (dispatch) => {
   // Creating this dispatch in case the user is already registered or no
   dispatch({ type: LOADING })
@@ -86,13 +105,70 @@ export const registerUserAction = () => async (dispatch) => {
     dispatch({ type: USER_ERROR })
   }
 }
-
 export const readUserActiveAction = () => (dispatch) => {
   if (localStorage.getItem('user')) {
     dispatch({
       type: USER_REGISTER,
       payload: JSON.parse(localStorage.getItem('user'))
     })
+  }
+}
+
+/** Sign Up with email*/
+
+export const registerEmail = (email, password, displayName) => async (dispatch) => {
+  dispatch({ type: LOADING })
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    //  Getting uid
+    const user = userCredential.user
+    if (!userCredential) {
+      console.error('Could not complete Sign Up')
+    }
+
+    // Updating profile
+    await updateProfile(auth.currentUser, {
+      displayName,
+      photoURL: user.photoURL
+    })
+    const formDataCopy = {
+      online: true,
+      displayName,
+      email,
+      password,
+      photoURL: user.photoURL,
+      timestamp: timestampNow
+    }
+
+    //  Creating collection of Users
+    await setDoc(doc(db, 'users', user.uid), formDataCopy)
+    // setIsLoading(false)
+    alert(`Welcome ${displayName}!`)
+
+    console.log('User created successfully')
+  } catch (error) {
+    console.log(error.message)
+    // setIsLoading(false)
+  }
+}
+
+/** Login  with email*/
+export const loginUserFB = (email, password) => async (dispatch) => {
+  // setIsLoading(true)
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password)
+    const docRef = doc(db, 'users', userCredential.user.uid)
+    await updateDoc(docRef, {
+      online: true
+    })
+    // setIsLoading(false)
+    // toast.success(`Welcome back ${userCredential.user.displayName}!`)
+  } catch (error) {
+    console.log(error)
+    // errorsFirebase(error.code)
+    // setIsLoading(false)
   }
 }
 

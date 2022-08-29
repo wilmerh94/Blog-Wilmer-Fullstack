@@ -1,0 +1,33 @@
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+body {
+  background-image: url('./assets/subtle-prism.svg');
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  position: relative;
+  /* color: rgb(241, 218, 196); */
+  white-space: normal;
+}
+html {
+  scroll-behavior: smooth;
+  /* scroll-padding-top: 70px; height of sticky header */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* #footer {
+  height: 1em;
+  width: 100%;
+  margin-bottom: 10em;
+} */

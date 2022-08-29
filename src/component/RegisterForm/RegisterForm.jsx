@@ -1,14 +1,14 @@
-import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
+import { Avatar, Box, Button, Grid, TextField, Typography } from '@mui/material'
 
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useFirebase } from 'src/context/FirebaseContext'
 import { errorsFirebase } from 'src/utils/errorsFirebase'
+import { formValidate } from 'src/utils/formValidate'
+import { AuthSocial } from '../AuthSocial/AuthSocial'
 import { FormError } from '../Error/FormError'
 import './RegisterForm.css'
-import { formValidate } from 'src/utils/formValidate'
-import { FormInput } from './FormInput'
 // const googleLogoURL = 'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg'
 const defaultValues = {
   displayName: '',
@@ -32,11 +32,13 @@ export const RegisterForm = () => {
   const onSubmit = async ({ email, password, displayName }) => {
     try {
       registerFB(email, password, displayName)
-      navigate('/')
       reset()
     } catch (error) {
       console.log(error.code)
-      setError('firebase', { message: errorsFirebase(error.code) })
+      const { code, message } = errorsFirebase(error.code)
+      setError(code, message)
+    } finally {
+      navigate('/')
     }
   }
 
@@ -58,6 +60,7 @@ export const RegisterForm = () => {
       <Typography component='h1' variant='h5'>
         Sign up
       </Typography>
+      <AuthSocial />
       <Typography component='label' variant='subtitle2'>
         Do not have an account yet?
       </Typography>
@@ -76,7 +79,6 @@ export const RegisterForm = () => {
         color='white'
         component='form'
         onSubmit={handleSubmit(onSubmit)}>
-        <FormInput></FormInput>
         <Controller
           render={({ field }) => (
             <TextField
@@ -128,7 +130,7 @@ export const RegisterForm = () => {
           )}
           control={control}
           rules={{
-            validate: validateEquals(getValues)
+            validate: validateEquals(getValues('password'))
           }}
           // rules={{ validate: (value) => value !== 'admin' || 'Nice try!' }}
         />

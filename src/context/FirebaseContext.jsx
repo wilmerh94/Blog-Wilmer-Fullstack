@@ -10,10 +10,12 @@ import {
 } from 'firebase/auth'
 import { collection, doc, onSnapshot, query, setDoc, updateDoc } from 'firebase/firestore'
 import { auth, db, timestampNow } from 'src/firebase/config'
+import { errorsFirebase } from 'src/utils/errorsFirebase'
+import { toast } from 'react-toastify'
 
 const FirebaseContext = createContext()
 
-export function FirebaseProvider ({ children }) {
+export function FirebaseProvider({ children }) {
   //  I can use setUser and user to create Active or not with onClick in sign in and sign out. I started the user as false because It will be use in the main App.jsx as a If(). If user is false  It will give me a Loading message and then after get answer from Google API it will give me the data or null
   const [user, setUser] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -86,9 +88,10 @@ export function FirebaseProvider ({ children }) {
         online: true
       })
       setIsLoading(false)
-      alert('Welcome back!')
+      toast.success(`Welcome back ${userCredential.user.displayName}!`)
     } catch (error) {
       console.log(error)
+      errorsFirebase(error.code)
       setIsLoading(false)
     }
   }
@@ -109,6 +112,8 @@ export function FirebaseProvider ({ children }) {
       alert('Successfully signed out!')
     } catch (error) {
       console.log(error)
+      errorsFirebase(error.code)
+
       setIsLoading(false)
     }
   }

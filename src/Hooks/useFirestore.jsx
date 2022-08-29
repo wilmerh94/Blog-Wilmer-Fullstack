@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, updateDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { auth, db } from 'src/firebase/config'
 import { nanoid } from 'nanoid'
@@ -86,6 +86,17 @@ export const useFirestore = () => {
     }
   }
 
+  const searchData = async (collectionName, nanoid) => {
+    try {
+      const docRef = doc(db, collectionName, nanoid)
+      const docSnap = await getDoc(docRef)
+      return docSnap
+      // I can d after this docSnap.exist()
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+
   return {
     data,
     error,
@@ -93,6 +104,7 @@ export const useFirestore = () => {
     getData,
     addData,
     deleteData,
-    updateData
+    updateData,
+    searchData
   }
 }

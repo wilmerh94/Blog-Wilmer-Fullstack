@@ -38,7 +38,8 @@ export const DrawerNavbar = ({ drawerOpen, setDrawerOpen }) => {
         position: 'relative',
         whiteSpace: 'nowrap',
         width: 400
-      }}>
+      }}
+    >
       <Toolbar />
       {/* Primary List */}
       <List sx={{ width: '100%', maxWidth: 360 }}>
@@ -72,10 +73,12 @@ export const DrawerNavbar = ({ drawerOpen, setDrawerOpen }) => {
               color: '#ececec'
             }}
             component='div'
-            id='nested-list-subheader'>
+            id='nested-list-subheader'
+          >
             Saved reports
           </ListSubheader>
-        }>
+        }
+      >
         {[
           { text: 'Current month', icon: <AssignmentIcon /> },
           { text: 'Last quarte', icon: <AssignmentIcon /> },

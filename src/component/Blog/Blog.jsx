@@ -1,7 +1,9 @@
+import { Typography, Box } from '@mui/material'
 import { useEffect, useId } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { blogData } from 'src/redux/userDuck'
 import { Loading } from '../Loading/Loading'
+import { SearchControl } from '../SearchControl'
 import './Blog.css'
 export const Blog = () => {
   const id = useId()
@@ -14,17 +16,24 @@ export const Blog = () => {
   }, [])
 
   return (
-    <div className='blog__page'>
-      <h1 className='blog__page__header'>Blogs</h1>
+    <Box
+      sx={{
+        marginTop: 8,
+        marginBottom: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}
+      color='white'>
+      <Typography component='h1' variant='h3'>
+        Blogs
+      </Typography>
+
+      <SearchControl />
       {loading ? <Loading /> : ''}
       <div className='blogs'>
         {blogs?.articles?.map((blog, index) => (
-          <a
-            className='blog'
-            target='_blank'
-            href={blog.url}
-            rel='noreferrer'
-            key={`${id}-blog${index}`}>
+          <a className='blog' target='_blank' href={blog.url} rel='noreferrer' key={`${id}-blog${index}`}>
             <img src={blog.image} />
             <div>
               <h3 className='sourceName'>
@@ -43,6 +52,6 @@ export const Blog = () => {
           </h1>
         )}
       </div>
-    </div>
+    </Box>
   )
 }

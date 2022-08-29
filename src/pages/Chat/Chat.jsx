@@ -17,12 +17,14 @@ export const Chat = () => {
         flexDirection: 'column',
         justifyContent: 'space-around',
         '& button': { m: 1 }
-      }}>
+      }}
+    >
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-between'
-        }}>
+        }}
+      >
         {user.status ? (
           <Button variant='outlined' color='error' onClick={logOLut}>
             Log Out
@@ -40,7 +42,8 @@ export const Chat = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center'
-        }}>
+        }}
+      >
         {user.status !== null ? <ChatCustom /> : <Loading />}
       </Box>
     </Box>

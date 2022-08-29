@@ -24,7 +24,8 @@ export const ModalUser = () => {
       <Tooltip
         onClick={(e) => setOpen(true)}
         title='Add'
-        sx={{ position: 'fixed', bottom: 20, left: { xs: 'cal(50%-25px)', md: 20 } }}>
+        sx={{ position: 'fixed', bottom: 20, left: { xs: 'cal(50%-25px)', md: 20 } }}
+      >
         <Stack direction='row' gap={1} color='inherit'>
           <Fab color='primary'>
             <AddIcon />
@@ -38,7 +39,8 @@ export const ModalUser = () => {
         open={open}
         onClose={(e) => setOpen(false)}
         aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'>
+        aria-describedby='modal-modal-description'
+      >
         <Box width={400} height={280} bgcolor='white' p={3} borderRadius={5}>
           <Typography id='modal-modal-title' variant='h6' color='gray ' textAlign='center'>
             Create User
@@ -53,7 +55,8 @@ export const ModalUser = () => {
               variant='span'
               color='gray '
               fontWeight={500}
-              textAlign='center'>
+              textAlign='center'
+            >
               Wilmer
             </Typography>
           </UserBox>

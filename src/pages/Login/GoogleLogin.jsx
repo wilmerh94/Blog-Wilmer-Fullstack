@@ -17,7 +17,7 @@ export const GoogleLogin = () => {
   }, [])
 
   return (
-    <Box sx={{ marginTop: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Box sx={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Button
         sx={{
           cursor: 'pointer',
@@ -25,13 +25,13 @@ export const GoogleLogin = () => {
           alignItems: 'center',
           padding: '0.75rem',
           margin: '1.5rem',
-          backgroundColor: 'ffffff',
           boxShadow: '1px 1px 5px 5px rgba(0, 0, 0, 0.1)',
           borderRadius: '5%'
         }}
+        bg='secondary.main'
         onClick={() => dispatch(registerUserAction())}
         disabled={loading}
-        startIcon={<GoogleIcon color='error' />}>
+        startIcon={<GoogleIcon color='warning' />}>
         Login with Google
       </Button>
     </Box>

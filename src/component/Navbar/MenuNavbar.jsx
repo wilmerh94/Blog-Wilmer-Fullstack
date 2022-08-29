@@ -1,159 +1,172 @@
+import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import { useFirebase } from 'src/context/FirebaseContext'
+import { signOutAction } from 'src/redux/userDuck'
+
+// @mui/icons
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import LogoutIcon from '@mui/icons-material/Logout'
 import MailIcon from '@mui/icons-material/Mail'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+// @mui
 import {
   Avatar,
   Badge,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemButton,
+  Paper,
+  ListItemIcon,
   ListItemText,
   ListSubheader,
   Menu,
-  Box
+  MenuItem,
+  MenuList,
+  Stack
 } from '@mui/material'
-import { NavLink } from 'react-router-dom'
-import { useFirebase } from 'src/context/FirebaseContext'
+// ----------------------------------------------------------------------
 
 export const MenuNavbar = ({ profileOpen, anchor }) => {
-  const { user } = useFirebase()
+  const { signOutUserFB } = useFirebase()
+  const dispatch = useDispatch()
+  const { userData } = useSelector((store) => store.user)
+  const { name, picture } = userData
+  const logout = (text) => {
+    if (text) {
+      signOutUserFB()
+      dispatch(signOutAction())
+      return
+    }
+  }
+
   return (
     <Menu
-      MenuListProps={{
-        style: {
-          width: '25ch',
-          padding: '4px 0',
-          display: 'flex',
-          justifyContent: 'space-evenly'
-        }
-      }}
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-evenly'
-      }}
+      sx={{ width: '300' }}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id='primary-search-account-menu'
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={Boolean(profileOpen)}
       anchorEl={anchor}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'space-evenly',
-          padding: 1,
-          width: '240'
-        }}>
+      <Paper sx={{ width: '280', maxWidth: '100%' }}>
         {/* Primary List */}
-        <List
-          aria-labelledby='nested-list-subheader'
-          sx={{
-            width: '100%'
-          }}
-          subheader={
-            <ListSubheader sx={{ backgroundColor: 'inherit' }} id='nested-list-subheader'>
-              Welcome {user.displayName}!
-            </ListSubheader>
-          }>
-          {[
-            {
-              text: 'Checkout',
-              icon: (
-                <ShoppingCartIcon
-                  sx={{
-                    paddingLeft: 0,
-                    marginLeft: '4.5px'
-                  }}
-                />
-              ),
-              badge: '0'
-            },
-            {
-              text: 'Messages',
-              icon: (
-                <MailIcon
-                  sx={{
-                    paddingLeft: 0,
-                    marginLeft: '4.5px'
-                  }}
-                />
-              ),
-              badge: '4'
-            },
-            {
-              text: 'Notification',
-              icon: (
-                <NotificationsIcon
-                  sx={{
-                    paddingLeft: 0,
-                    marginLeft: '3.5px'
-                  }}
-                />
-              ),
-              badge: '4'
-            },
-            {
-              text: 'Profile',
-              icon: user ? (
-                <ListItemAvatar
-                  sx={{
-                    maxWidth: '45px',
-                    maxHeight: '45px',
-                    paddingLeft: 0,
-                    marginLeft: '-4.5px'
-                  }}>
-                  <Avatar src={user.photoURL} alt={user.displayName} />
-                </ListItemAvatar>
-              ) : (
-                <AccountCircleIcon />
-              )
-            }
-          ].map(({ text, icon, badge }) => {
-            const path = `/${text.toLowerCase()}`
-            return (
-              <ListItem alignItems='flex-start' key={text} disablePadding>
-                <ListItemButton
-                  sx={{
-                    paddingLeft: 1,
-                    marginLeft: 0,
-                    maxWidth: '50px',
-                    maxHeight: '50px',
-                    position: 'relative'
-                  }}
-                  alignItems='center'
-                  component={NavLink}
-                  to={path}>
-                  <Badge
-                    badgeContent={badge}
-                    invisible={badge > 0 ? false : true}
-                    sx={{ mr: 1, ml: 0, pl: 0 }}
-                    color='secondary'>
-                    {icon}
-                  </Badge>
-                </ListItemButton>
-
-                <ListItemButton
-                  sx={{ mr: 0, ml: '3.5px', pl: 0 }}
-                  alignItems='center'
-                  component={NavLink}
-                  to={path}>
-                  <ListItemText
+        <Stack direction='row'>
+          <MenuList
+            sx={{ width: 200, maxWidth: '100%' }}
+            subheader={
+              <ListSubheader sx={{ backgroundColor: 'inherit', fontWeight: 900 }}>
+                Welcome {userData.name}!
+              </ListSubheader>
+            }>
+            {[
+              {
+                text: 'Checkout',
+                icon: <ShoppingCartIcon size='medium' />,
+                badge: '0'
+              },
+              {
+                text: 'Messages',
+                icon: <MailIcon size='medium' />,
+                badge: '4'
+              },
+              {
+                text: 'Notification',
+                icon: <NotificationsIcon size='medium' />,
+                badge: '4'
+              },
+              {
+                text: 'Profile',
+                icon: userData ? (
+                  <Avatar
+                    size='medium'
                     sx={{
-                      display: 'flex'
+                      maxWidth: '35px',
+                      maxHeight: '35px'
                     }}
-                    variant='body1'
-                    primary={text}
+                    src={picture}
+                    alt={name}
                   />
-                </ListItemButton>
-              </ListItem>
-            )
-          })}
-        </List>
-      </Box>
+                ) : (
+                  <AccountCircleIcon size='medium' />
+                )
+              },
+              {
+                text: 'Logout',
+                icon: (
+                  <LogoutIcon
+                    sx={{
+                      paddingLeft: 0,
+                      marginLeft: '3.5px',
+                      marginTop: '3px',
+                      marginBottom: '0px'
+                    }}
+                    size='medium'
+                  />
+                )
+              }
+            ].map(({ text, icon, badge }) => {
+              const path = `/${text.toLowerCase()}`
+              return (
+                <MenuList
+                  sx={{ width: '100%', alignItems: 'center', justifyContent: 'space-evenly' }}
+                  key={text}
+                  id='composition-menu'>
+                  <MenuItem
+                    sx={{
+                      display: 'flex',
+
+                      width: '100',
+                      height: '35px',
+                      maxWidth: '100%',
+                      maxHeight: '100%'
+                    }}
+                    key={text}
+                    component={NavLink}
+                    onClick={() => logout(text)}
+                    to={text === 'Logout' ? '/' : path}>
+                    <ListItemIcon
+                      sx={{
+                        alignItems: 'center',
+                        alignContent: 'center',
+                        justifyContent: 'space-around'
+                      }}>
+                      <Badge badgeContent={badge} invisible={badge > 0 ? false : true} color='secondary'>
+                        {icon}
+                      </Badge>
+                    </ListItemIcon>
+
+                    <ListItemText
+                      sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '25px',
+                        height: '25px',
+                        maxWidth: '100%',
+                        maxHeight: '100%'
+                      }}
+                      primary={text}
+                    />
+                  </MenuItem>
+                </MenuList>
+              )
+            })}
+          </MenuList>
+        </Stack>
+      </Paper>
     </Menu>
   )
 }
+/**
+ *                   <MenuList
+                    sx={{ mr: 0, ml: '3.5px', pl: 0 }}
+                    alignItems='center'
+                    component={NavLink}
+                    to={path}>
+                    <ListItemText
+                      sx={{
+                        display: 'flex'
+                      }}
+                      variant='body1'
+                      primary={text}
+                      />
+
+ */

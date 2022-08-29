@@ -1,13 +1,13 @@
-import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 
 // Style
-import './App.css'
 // Components
 import { Blog } from './component/Blog/Blog'
-import { Footer } from './component/Footer/Footer'
-import { Navbar } from './component/Navbar/Navbar'
+import { LayoutMain } from './component/Layout/LayoutMain'
+import { LayoutRequireAuth } from './component/Layout/LayoutRequireAuth'
+import { FullPokeDetails } from './component/PokeDeck/FullPokeDetails'
 import { PokeDeck } from './component/PokeDeck/PokeDeck'
+import { PokeDeckMain } from './component/PokeDeck/PokeDeckMain'
 import { RegisterForm } from './component/RegisterForm/RegisterForm'
 
 import { Chat } from './pages/Chat/Chat'
@@ -16,6 +16,7 @@ import { ContactForm } from './pages/Contact/ContactForm'
 import { Dashboard } from './pages/Dashboard/Dashboard'
 import { Home } from './pages/Home/Home'
 import { Login } from './pages/Login/Login'
+import { NotFound } from './pages/NotFound/NotFound'
 
 // Context
 
@@ -23,52 +24,26 @@ import { Login } from './pages/Login/Login'
 // import { PrivateRoute } from './component/PrivateRoute/PrivateRoute'
 
 function App() {
-  const { isSignedIn } = useSelector((store) => store.user)
   return (
-    <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <Navbar />
-      <div className='App'>
-        <Routes>
-          <Route
-            path='/'
-            element={<Home />}
-          />
-          <Route
-            path='/login'
-            element={<Login />}
-          />
-          <Route
-            path='/contact'
-            element={<ContactForm />}
-          />
-          <Route
-            path='/chat'
-            element={<Chat />}
-          />
-          <Route
-            path='/blogs'
-            element={isSignedIn && <Blog />}
-          />
-          <Route
-            path='/poke-deck'
-            element={<PokeDeck />}
-          />
-          <Route
-            path='/dashboard'
-            element={<Dashboard />}
-          />
-          <Route
-            path='/checkout'
-            element={<Checkout />}
-          />
-          <Route
-            path='/sign-up'
-            element={<RegisterForm />}
-          />
-        </Routes>
-      </div>
-      <Footer />
-    </div>
+    <Routes>
+      <Route element={<LayoutMain />}>
+        <Route index element={<Home />} />
+        <Route path='*' element={<NotFound />} />
+        <Route path='login' element={<Login />} />
+        <Route path='checkout' element={<Checkout />} />
+        <Route path='sign-up' element={<RegisterForm />} />
+        <Route path='contact' element={<ContactForm />} />
+        <Route element={<LayoutRequireAuth />}>
+          <Route path='/chat' element={<Chat />} />
+          <Route path='/blogs' element={<Blog />} />
+          <Route path='/poke-deck' element={<PokeDeckMain />}>
+            <Route index element={<PokeDeck />} />
+            <Route path=':pokeId' element={<FullPokeDetails />} />
+          </Route>
+          <Route path='/dashboard' element={<Dashboard />} />
+        </Route>
+      </Route>
+    </Routes>
   )
 }
 

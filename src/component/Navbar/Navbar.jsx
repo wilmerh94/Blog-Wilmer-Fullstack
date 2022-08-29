@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+// redux
+import { useSelector } from 'react-redux'
+import { useFirebase } from 'src/context/FirebaseContext'
+import { ColorModeContext } from 'src/context/ThemeContext'
 
-import Brightness4Icon from '@mui/icons-material/Brightness4'
-import Brightness7Icon from '@mui/icons-material/Brightness7'
+// @mui
 
-import MenuIcon from '@mui/icons-material/Menu'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import SearchIcon from '@mui/icons-material/Search'
 import {
   AppBar,
   Badge,
@@ -14,32 +14,40 @@ import {
   Button,
   Container,
   IconButton,
-  InputBase,
   Toolbar,
   Tooltip,
-  Typography
+  Typography,
+  useTheme
 } from '@mui/material'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useFirebase } from 'src/context/FirebaseContext'
-import { ColorModeContext } from 'src/context/ThemeContext'
-import { searchInputUser, signOutAction } from 'src/redux/userDuck'
+// @mui/icons
+import Brightness4Icon from '@mui/icons-material/Brightness4'
+import Brightness7Icon from '@mui/icons-material/Brightness7'
+import MenuIcon from '@mui/icons-material/Menu'
+import MoreVertIcon from '@mui/icons-material/MoreVert'
+// components
 import { Loading } from '../Loading/Loading'
 import { DrawerNavbar } from './DrawerNavbar'
 import { MenuNavbar } from './MenuNavbar'
 import './Navbar.css'
-export const Navbar = () => {
-  const navigate = useNavigate()
-  // Drawer
 
+// ----------------------------------------------------------------------
+
+export const Navbar = () => {
+  const { palette } = useTheme()
+  const colorMode = useContext(ColorModeContext)
+  const { loading } = useFirebase()
+
+  const { isSignedIn } = useSelector((store) => store.user)
+
+  // Drawer
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [profileOpen, setProfileOpen] = useState(null)
   const [anchor, setAnchor] = useState(null)
 
   const handleProfileOpen = (e) => {
-    // setProfileOpen((prevOpen) => (prevOpen === true ? false : true))
-
     setProfileOpen((prevMode) => (prevMode === true ? false : true))
     setAnchor(e.currentTarget)
+    // setProfileOpen((prevOpen) => (prevOpen === true ? false : true))
   }
 
   const onDrawerButtonClick = (e) => {
@@ -47,39 +55,20 @@ export const Navbar = () => {
     setDrawerOpen((prevMode) => (prevMode === true ? false : true))
   }
 
-  const [inputValue, setInputValue] = useState('')
-  const { user, loading, signOutUserFB } = useFirebase()
-
-  const dispatch = useDispatch()
-
-  const { isSignedIn } = useSelector((store) => store.user)
-  // eslint-disable-next-line no-unused-vars
-  const logout = () => {
-    signOutUserFB()
-    dispatch(signOutAction())
-  }
-
-  const handleClick = (e) => {
-    e.preventDefault()
-    navigate('/blogs')
-    dispatch(searchInputUser(inputValue))
-  }
-  const colorMode = useContext(ColorModeContext)
-  if (loading) return <Loading />
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <Box sx={{ display: 'flex', position: 'sticky', zIndex: '100' }}>
-      <Tooltip title={`<AppBar color="primary">`} placement='left' arrow>
+      <Tooltip title={``} placement='left' arrow>
         <AppBar position='static' bgcolor='primary.secondary'>
           <Container
-            maxWidth='xl'
             sx={{
+              maxWidth: '500px',
               width: 'max-content',
               display: 'flex',
               left: '50%',
               transform: 'translateX(-50%)',
-
               position: 'fixed',
-
               zIndex: '100',
               borderRadius: '3rem',
               backdropFilter: 'blur(15px)'
@@ -118,56 +107,27 @@ export const Navbar = () => {
                   Will Blogs
                 </Typography>
                 <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color='inherit'>
-                  {localStorage.getItem('theme') === 'light' ? (
-                    <Brightness7Icon />
-                  ) : (
-                    <Brightness4Icon />
-                  )}
+                  {palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
               </Box>
-              {user ? (
-                <>
-                  <div className='blog__search'>
-                    <InputBase
-                      sx={{ ml: 1, flex: 1, color: 'inherit' }}
-                      placeholder='Search for a blogs'
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      inputProps={{ 'aria-label': 'Search' }}
-                    />
-                    <IconButton color='inherit' onClick={handleClick} size='small'>
-                      <SearchIcon />
+              {isSignedIn ? (
+                <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+                  <div>
+                    <IconButton
+                      aria-label='show more'
+                      aria-haspopup='true'
+                      color='inherit'
+                      aria-controls={open ? 'composition-menu' : undefined}
+                      aria-expanded={open ? 'true' : undefined}
+                      onClick={handleProfileOpen}>
+                      <Badge badgeContent={17} color='secondary'>
+                        <MoreVertIcon />
+                      </Badge>
+
+                      {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
                     </IconButton>
                   </div>
-
-                  <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-                    <Button
-                      onClick={logout}
-                      variant='outlined'
-                      color='inherit'
-                      size='small'
-                      sx={{ mx: 0, px: 0 }}
-                      component={NavLink}
-                      to='/'>
-                      Logout
-                    </Button>
-                    <div>
-                      <IconButton
-                        aria-label='show more'
-                        aria-haspopup='true'
-                        color='inherit'
-                        aria-controls={open ? 'composition-menu' : undefined}
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleProfileOpen}>
-                        <Badge badgeContent={17} color='secondary'>
-                          <MoreVertIcon />
-                        </Badge>
-
-                        {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
-                      </IconButton>
-                    </div>
-                  </Box>
-                </>
+                </Box>
               ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
                   <Button

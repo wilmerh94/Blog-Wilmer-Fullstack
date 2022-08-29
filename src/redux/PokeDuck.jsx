@@ -104,9 +104,7 @@ export const previousPokemonAction = () => async (dispatch, getState) => {
 
 // ! Actions for a single one
 
-export const PokemonDetailsAction = (url = 'https://pokeapi.co/api/v2/pokemon/1/') => async (
-  dispatch
-) => {
+export const PokemonDetailsAction = (url) => async (dispatch) => {
   if (localStorage.getItem(url)) {
     dispatch({
       type: POKE_INFO,
@@ -120,9 +118,11 @@ export const PokemonDetailsAction = (url = 'https://pokeapi.co/api/v2/pokemon/1/
     dispatch({
       type: POKE_INFO,
       payload: {
+        id: res.data.id,
         name: res.data.name,
         weight: res.data.weight,
         height: res.data.height,
+        type: res.data.types[0].type.name,
         photo: res.data.sprites.other['official-artwork'].front_default
       }
     })
@@ -130,6 +130,7 @@ export const PokemonDetailsAction = (url = 'https://pokeapi.co/api/v2/pokemon/1/
     localStorage.setItem(
       url,
       JSON.stringify({
+        id: res.data.id,
         name: res.data.name,
         weight: res.data.weight,
         height: res.data.height,

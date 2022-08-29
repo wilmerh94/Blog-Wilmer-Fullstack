@@ -8,7 +8,8 @@ export const Checkout = () => {
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'center'
-      }}>
+      }}
+    >
       <Box
         sx={{
           margin: '10px',
@@ -18,7 +19,8 @@ export const Checkout = () => {
           justifyContent: 'center',
           alignContent: 'center'
         }}
-        align='center'>
+        align='center'
+      >
         <Paper position='absolute' color='default'>
           <Toolbar>
             <Typography variant='h6' color='inherit' noWrap>
@@ -42,8 +44,8 @@ export const Checkout = () => {
               Thank you for your order.
             </Typography>
             <Typography variant='subtitle1'>
-              Your order number is #2001539. We have emailed your order confirmation, and will send
-              you an update when your order has shipped.
+              Your order number is #2001539. We have emailed your order confirmation, and will send you an
+              update when your order has shipped.
             </Typography>
             <div
               style={{
@@ -51,14 +53,14 @@ export const Checkout = () => {
                 justifyContent: 'flex-end',
                 mt: '3',
                 ml: '3'
-              }}>
-              <Button sx={{ display: 'flex', justifyContent: 'flex-end', mt: '3', ml: '3' }}>
-                Back
-              </Button>
+              }}
+            >
+              <Button sx={{ display: 'flex', justifyContent: 'flex-end', mt: '3', ml: '3' }}>Back</Button>
               <Button
                 sx={{ display: 'flex', justifyContent: 'flex-end', mt: '3', ml: '3' }}
                 variant='contained'
-                color='primary'>
+                color='primary'
+              >
                 Next/Place Order
               </Button>
             </div>

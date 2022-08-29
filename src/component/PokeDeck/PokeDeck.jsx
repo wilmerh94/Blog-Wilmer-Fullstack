@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  Typography
-} from '@mui/material'
+import { Box, Button, Grid, IconButton, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   getPokemonAction,
@@ -18,14 +9,15 @@ import {
 // Importing material UI components
 import InfoIcon from '@mui/icons-material/Info'
 import { PokeDetails } from './PokeDetails'
+
 export const PokeDeck = () => {
   const dispatch = useDispatch() // With dispatch I give the order of what i need and with Selector I can save the data in the store
-  const { results: pokemonsResults, next, previous } = useSelector((store) => store.pokemons) // Extracting the variables(initialState) inside of Redux store. from PokeDuck.jsx
-
+  const { results: pokemonsResults, next, previous } = useSelector((store) => store.pokemons)
+  // Extracting the variables(initialState) inside of Redux store. from PokeDuck.jsx
   return (
     <Box
       sx={{
-        marginTop: 1,
+        marginTop: 7,
         marginBottom: 1,
         display: 'flex',
         flexDirection: 'row',
@@ -44,7 +36,6 @@ export const PokeDeck = () => {
           List of Pokemon
         </Typography>
 
-        <hr />
         <Box
           sx={{
             display: 'flex',
@@ -65,10 +56,7 @@ export const PokeDeck = () => {
             </Button>
           )}
           {previous && (
-            <Button
-              size='small'
-              variant='outlined'
-              onClick={() => dispatch(previousPokemonAction())}>
+            <Button size='small' variant='outlined' onClick={() => dispatch(previousPokemonAction())}>
               Previous
             </Button>
           )}
@@ -81,24 +69,18 @@ export const PokeDeck = () => {
             flexDirection: 'column',
             alignItems: 'center'
           }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+          <Grid container spacing={8}>
+            <Grid item xs={12} md={12} lg={12}>
               <List>
                 {pokemonsResults.map((item) => (
                   <ListItem
                     key={item.name}
                     secondaryAction={
-                      <IconButton
-                        edge='end'
-                        aria-label='delete'
-                        onClick={() => dispatch(PokemonDetailsAction(item.url))}>
+                      <IconButton edge='end' onClick={() => dispatch(PokemonDetailsAction(item.url))}>
                         <InfoIcon />
                       </IconButton>
                     }>
-                    <ListItemText
-                      primary={item.name}
-                      sx={{ mr: '16px', textTransform: 'capitalize' }}
-                    />
+                    <ListItemText primary={item.name} sx={{ mr: '15px', textTransform: 'capitalize' }} />
                   </ListItem>
                 ))}
               </List>

@@ -1,10 +1,11 @@
-import { CardActionArea } from '@mui/material'
+import { Button, CardActionArea } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { PokemonDetailsAction } from 'src/redux/PokeDuck'
 export const PokeDetails = () => {
   const dispatch = useDispatch()
@@ -33,6 +34,9 @@ export const PokeDetails = () => {
           <Typography variant='body2' align='center' color='text.secondary'>
             Weight:{pokemon.weight} | Height:{pokemon.height}
           </Typography>
+          <Button component={Link} to={`/poke-deck/${pokemon.id}`} variant='contained' size='small'>
+            More Details
+          </Button>
         </CardContent>
       </CardActionArea>
     </Card>

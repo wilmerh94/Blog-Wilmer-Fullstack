@@ -3,16 +3,15 @@
   align-items: center;
   justify-content: center;
   width: 50%;
-  margin: 10rem auto;
+  margin: 8rem auto;
   text-align: center;
   /* Entire page height */
-  height: 100vh;
+  /* height: 100vh; */
   /* top: 100px; */
 }
 
 .login__message {
   display: flex;
-  top: 50px;
   /* min-height: 100vh; */
 
   flex-direction: column;

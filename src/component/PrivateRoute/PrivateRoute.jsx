@@ -32,3 +32,10 @@ export const PrivateRoute = () => {
     }
   }
 }
+
+/** const PrivateRoute=()=>{
+ * const { user}=useContext(UserContext)
+ * if(!user){return <Navigate to='/login' />}
+ * return <Outlet />
+ *
+ * } */

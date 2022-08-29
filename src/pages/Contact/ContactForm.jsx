@@ -38,7 +38,8 @@ export const ContactForm = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-      }}>
+      }}
+    >
       <Avatar sx={{ m: 1 }}>
         <SpeakerNotesRoundedIcon />
       </Avatar>
@@ -66,7 +67,8 @@ export const ContactForm = () => {
           justifyContent: 'space-around'
         }}
         onSubmit={handleSubmit(onSubmit)}
-        noValidate>
+        noValidate
+      >
         <Controller
           name='name'
           rules={{
@@ -91,13 +93,7 @@ export const ContactForm = () => {
             }
           }}
           render={({ field }) => (
-            <TextField
-              {...field}
-              placeholder='Email address*'
-              type='email'
-              fullWidth
-              sx={{ m: 1 }}
-            />
+            <TextField {...field} placeholder='Email address*' type='email' fullWidth sx={{ m: 1 }} />
           )}
           control={control}
         />
@@ -140,7 +136,8 @@ export const ContactForm = () => {
             background: '#ec5990',
             letterSpacing: '2px',
             borderRadius: '15px'
-          }}>
+          }}
+        >
           Contact
         </Button>
       </Box>

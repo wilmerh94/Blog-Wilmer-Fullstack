@@ -10,11 +10,7 @@
   width: 440px;
   height: 220px;
   background-color: rgba(0, 0, 0, 0.5);
-  background-image: linear-gradient(
-    to bottom right,
-    rgba(255, 255, 255, 0.392),
-    rgba(255, 255, 255, 0)
-  );
+  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.392), rgba(255, 255, 255, 0));
   backdrop-filter: blur(10px);
 
   border-radius: 25px;
