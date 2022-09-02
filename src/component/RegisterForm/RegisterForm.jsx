@@ -8,7 +8,6 @@ import { errorsFirebase } from 'src/utils/errorsFirebase'
 import { formValidate } from 'src/utils/formValidate'
 import { AuthSocial } from '../AuthSocial/AuthSocial'
 import { FormError } from '../Error/FormError'
-import './RegisterForm.css'
 // const googleLogoURL = 'https://raw.githubusercontent.com/fireflysemantics/logo/master/Google.svg'
 const defaultValues = {
   displayName: '',

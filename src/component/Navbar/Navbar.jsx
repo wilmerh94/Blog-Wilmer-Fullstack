@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 // redux
 import { useSelector } from 'react-redux'
@@ -16,9 +16,9 @@ import {
   IconButton,
   Toolbar,
   Tooltip,
-  Typography,
-  useTheme
+  Typography
 } from '@mui/material'
+import { useColorScheme } from '@mui/material/styles'
 // @mui/icons
 import Brightness4Icon from '@mui/icons-material/Brightness4'
 import Brightness7Icon from '@mui/icons-material/Brightness7'
@@ -28,12 +28,15 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Loading } from '../Loading/Loading'
 import { DrawerNavbar } from './DrawerNavbar'
 import { MenuNavbar } from './MenuNavbar'
-import './Navbar.css'
+// import { extendTheme } from '@mui/joy'
 
 // ----------------------------------------------------------------------
 
 export const Navbar = () => {
-  const { palette } = useTheme()
+  const { mode, setMode } = useColorScheme()
+  // console.log(extendTheme().cssVarPrefix, mode)
+  // console.log(useColorScheme())
+  const [mounted, setMounted] = useState(false)
   const colorMode = useContext(ColorModeContext)
   const { loading } = useFirebase()
 
@@ -44,6 +47,14 @@ export const Navbar = () => {
   const [profileOpen, setProfileOpen] = useState(null)
   const [anchor, setAnchor] = useState(null)
 
+  const handleTheme = () => {
+    setMode(mode === 'dark' ? 'light' : 'dark')
+    console.log(setMode)
+    // setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'))
+
+    colorMode.toggleColorMode()
+  }
+
   const handleProfileOpen = (e) => {
     setProfileOpen((prevMode) => (prevMode === true ? false : true))
     setAnchor(e.currentTarget)
@@ -53,6 +64,13 @@ export const Navbar = () => {
   const onDrawerButtonClick = (e) => {
     e.preventDefault()
     setDrawerOpen((prevMode) => (prevMode === true ? false : true))
+  }
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+  if (!mounted) {
+    return null
   }
 
   return loading ? (
@@ -106,8 +124,8 @@ export const Navbar = () => {
                   }}>
                   Will Blogs
                 </Typography>
-                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color='inherit'>
-                  {palette.mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
+                <IconButton sx={{ ml: 1 }} onClick={handleTheme} color='inherit'>
+                  {mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
               </Box>
               {isSignedIn ? (

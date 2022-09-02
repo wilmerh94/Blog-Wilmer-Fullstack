@@ -3,9 +3,15 @@ import { createTheme } from '@mui/material/styles'
 export const LightTheme = createTheme({
   palette: {
     mode: 'light',
+    // customColor: {
+    //   light:,main:,dark:, contrastText,
+    // },
     primary: {
-      main: '#3b7197',
-      secondary: 'rgba(59, 113, 151, 0.22)'
+      light: '#8FE3CF',
+      main: '#256D85',
+      dark: '#2B4865',
+      contrastText: '#fff'
+      // secondary: 'rgba(59, 113, 151, 0.22)'
     },
     secondary: {
       main: '#e76e3c'
@@ -18,16 +24,15 @@ export const LightTheme = createTheme({
       primary: 'rgb(237, 165, 76)',
       secondary: 'rgba(255, 255, 255, 0.9)'
     },
-
     info: {
       main: '#2196f3'
     }
   },
   typography: {
+    fontFamily: 'Playfair Display',
     h1: {
       fontFamily: '"Playfair Display","Helvetica", "Arial", sans-serif'
-    },
-    fontFamily: 'Playfair Display'
+    }
   },
   shape: {
     borderRadius: 6
@@ -59,10 +64,10 @@ export const LightTheme = createTheme({
         track: {
           borderRadius: 13,
           border: '1px solid #bdbdbd',
-          backgroundColor: '#fafafa',
-          opacity: 1,
-          transition:
-            'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
+          // backgroundColor: '#fafafa',
+          opacity: 1
+          // transition:
+          //   'background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
         }
       }
     },
@@ -125,3 +130,29 @@ export const LightTheme = createTheme({
     }
   }
 })
+
+// const Colors = {
+//   common: '#333333'
+//   primary: '#60CAAD'
+//   secondary: '#E9E9E9'
+//   error: '#9DA5A0'
+//   warning
+//   info
+//   success
+//   grey
+
+//   danger
+//   dark
+//   light
+//   muted
+//   border
+//   inverse
+//   shaft
+//   dove_gray
+//   body_bg
+//   // ----------------------------------------------------------------
+//   // Solid Color
+//   // ----------------------------------------------------------------
+// white
+// black
+// }

@@ -11,8 +11,8 @@ export const DarkTheme = createTheme({
       main: '#1BA098'
     },
     background: {
-      paper: '#040f0f',
-      default: '#040f0f'
+      paper: 'rgba(0, 10, 10)',
+      default: 'rgba(0, 10, 10)'
     },
     text: {
       primary: 'rgb(237, 165, 76)',

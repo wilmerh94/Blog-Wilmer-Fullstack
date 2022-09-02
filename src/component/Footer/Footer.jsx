@@ -18,20 +18,28 @@ export const Footer = () => {
         {'.'}
       </Typography>
       <List
+        color='white'
         sx={{
           display: 'flex',
           flexDirection: 'row',
           textAlign: 'center',
-          justifyContent: 'space-between',
-          width: '50%'
+          justifyContent: 'space-around',
+          width: '90%',
+          py: 0,
+          height: 60
         }}
         aria-labelledby='nested-list-subheader'>
         {['Contact', 'Poke-Deck', 'Chat', 'Profile'].map((text) => {
           const path = `/${text.toLowerCase()}`
           return (
-            <ListItem alignItems='center' key={text} disablePadding>
+            <ListItem sx={{ height: 30 }} alignItems='center' key={text} disablePadding>
               <ListItemButton alignItems='center' component={NavLink} to={path}>
-                <ListItemText variant='body1' primary={text} />
+                <ListItemText
+                  inset
+                  variant='body1'
+                  primary={text}
+                  primaryTypographyProps={{ color: 'text.tertiary', width: 90 }}
+                />
               </ListItemButton>
             </ListItem>
           )

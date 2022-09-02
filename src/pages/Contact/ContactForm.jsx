@@ -2,7 +2,6 @@ import SpeakerNotesRoundedIcon from '@mui/icons-material/SpeakerNotesRounded'
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import './ContactForm.css'
 
 const defaultValues = {
   name: '',
@@ -38,8 +37,7 @@ export const ContactForm = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
-      }}
-    >
+      }}>
       <Avatar sx={{ m: 1 }}>
         <SpeakerNotesRoundedIcon />
       </Avatar>
@@ -67,8 +65,7 @@ export const ContactForm = () => {
           justifyContent: 'space-around'
         }}
         onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
+        noValidate>
         <Controller
           name='name'
           rules={{
@@ -136,8 +133,7 @@ export const ContactForm = () => {
             background: '#ec5990',
             letterSpacing: '2px',
             borderRadius: '15px'
-          }}
-        >
+          }}>
           Contact
         </Button>
       </Box>

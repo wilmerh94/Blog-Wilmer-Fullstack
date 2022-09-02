@@ -29,6 +29,9 @@ import { formatDistanceToNow } from 'date-fns'
 import { ModalUser } from 'src/component/ModalUser/ModalUser'
 import styled from '@emotion/styled'
 import { formatDate } from 'src/utils/formatTime'
+import { CardDashboard } from 'src/component/CardDashboard/CardDashboard'
+import { Users } from './Users'
+
 const StyleModal = styled(Modal)({
   display: 'flex',
   alignItems: 'center',
@@ -50,13 +53,9 @@ export const Dashboard = () => {
   const [idEdit, setIdEdit] = useState()
 
   useEffect(() => {
-    console.log('users')
-
     getData('users')
   }, [])
 
-  if (loading.getData) return <Loading />
-  if (error) return <div>{error}</div>
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (idEdit) {
@@ -79,11 +78,14 @@ export const Dashboard = () => {
     setIdEdit(true)
     setOpen(true)
   }
+  if (loading.getData) return <Loading />
+  if (error) return <div>{error}</div>
 
   return (
     <Box
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
         alignContent: 'center',
@@ -194,6 +196,8 @@ export const Dashboard = () => {
           <Stack direction='row' gap={1} mt={2} mb={3}></Stack>
         </Box>
       </StyleModal>
+      {/* <CardDashboard /> */}
+      <Users />
     </Box>
   )
 }

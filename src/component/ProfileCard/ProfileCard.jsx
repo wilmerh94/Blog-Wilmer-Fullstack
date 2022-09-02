@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react'
-import './ProfileCard.css'
 const defaultData = {
   name: 'Wilmer',
   posts: 'hello',

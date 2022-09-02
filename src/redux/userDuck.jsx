@@ -14,6 +14,7 @@ import { useEffect } from 'react'
 import { useFetch } from 'src/Hooks/useFetch'
 import { Loading } from 'src/component/Loading/Loading'
 import { doc, setDoc, updateDoc } from 'firebase/firestore'
+// ----------------------------------------------------------------------
 
 // Initial Data
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   searchInput: 'tech',
   blogData: null
 }
+// ----------------------------------------------------------------------
 
 // Types
 const LOADING = 'LOADING'
@@ -31,6 +33,7 @@ const USER_REGISTER = 'USER_REGISTER'
 const USER_OUT = 'USER_OUT'
 const SEARCH_INPUT = 'SEARCH_INPUT'
 const BLOG_DATA = 'BLOG_DATA'
+// ----------------------------------------------------------------------
 
 // Reducer
 export const userReducer = (state = initialState, action) => {
@@ -51,6 +54,7 @@ export const userReducer = (state = initialState, action) => {
       return { ...state }
   }
 }
+// ----------------------------------------------------------------------
 
 // Actions. Actions are going to be import to the Component/Page I need to call the action and call it with dispatch
 
@@ -180,7 +184,7 @@ export const signOutAction = () => (dispatch) => {
 
 export const searchInputUser = (action) => async (dispatch) => {
   try {
-    const blog_url = `https://gnews.io/api/v4/search?q=${action}&token=5b690c9a6983114519ab5e366c864743&lang=en`
+    const blog_url = `https://gnews.io/api/v4/search?q=${action}&token=5b690c9a6983114519ab5e366c864743&max=9&lang=en`
     const response = await axios.get(blog_url)
 
     dispatch({ type: SEARCH_INPUT, payload: { blog: response.data, searchInput: action } })

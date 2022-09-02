@@ -32,7 +32,7 @@ export const PokeDeck = () => {
           alignItems: 'center',
           '& button': { m: 1 }
         }}>
-        <Typography gutterBottom variant='h6' component='h3'>
+        <Typography gutterBottom variant='h6' component='h3' color='text.tertiary'>
           List of Pokemon
         </Typography>
 
@@ -80,7 +80,14 @@ export const PokeDeck = () => {
                         <InfoIcon />
                       </IconButton>
                     }>
-                    <ListItemText primary={item.name} sx={{ mr: '15px', textTransform: 'capitalize' }} />
+                    <ListItemText
+                      primary={item.name}
+                      sx={{
+                        mr: '15px',
+                        textTransform: 'capitalize',
+                        '& .MuiTypography-root': { color: 'text.tertiary' }
+                      }}
+                    />
                   </ListItem>
                 ))}
               </List>
@@ -95,7 +102,7 @@ export const PokeDeck = () => {
           flexDirection: 'column',
           alignItems: 'center'
         }}>
-        <Typography gutterBottom variant='h6' component='h3'>
+        <Typography gutterBottom variant='h6' component='h3' color='text.tertiary'>
           Pokemon Details
         </Typography>
 

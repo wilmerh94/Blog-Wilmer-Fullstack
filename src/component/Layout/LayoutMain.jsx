@@ -1,62 +1,99 @@
-import { Box } from '@mui/material'
+import { Box, Container, Grid } from '@mui/joy'
+import { CssBaseline } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import { Footer } from '../Footer/Footer'
 import { Navbar } from '../Navbar/Navbar'
+// ----------------------------------------------------------------------
 
 export const LayoutMain = () => {
+  // console.log(extendTheme())
+
   return (
-    <Box
-      component='main'
-      sx={{
-        height: '100vh',
-        width: '100%',
-        maxWidth: '100vw',
+    <>
+      <CssBaseline />
 
-        display: 'flex',
-        flexFlow: 'column nowrap',
-        flexGrow: '1',
+      <Container
+        fixed
+        component='section'
+        sx={{
+          m: { xs: 0, sm: 0, md: 0 },
+          px: { xs: 0, sm: 0, md: 0 },
+          width: { xs: '100vw', sm: '100vw', md: '100vw' },
+          maxWidth: { xs: '100vw', sm: '100vw', md: '100vw' },
+          height: { xs: '100vh', sm: '100vh', md: '100vh' },
+          maxHeight: { xs: '100vh', sm: '100vh', md: '100vh' }
+        }}>
+        <Grid
+          container
+          direction='row'
+          justifyContent='space-between'
+          alignItems='stretch'
+          spacing={{ xs: 12, sm: 4, md: 4 }}
+          columns={{ xs: 1, sm: 1, md: 1 }}
+          rowSpacing={{ xs: 25 }}>
+          <Grid item xs={12} sm={4} md={4} direction='column' justifyContent='center' alignItems='center'>
+            {/* Navbar */}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                maxWidth: '100%',
+                justifyContent: 'center'
+              }}>
+              <Navbar />
+            </Box>
+          </Grid>
 
-        justifyContent: 'space-between',
-        alignContent: 'space-between'
-      }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          maxWidth: '100%',
-          justifyContent: 'center'
-        }}>
-        <Navbar />
-      </Box>
-      <Box
-        sx={{
-          display: 'flex'
-        }}>
-        <Outlet />
-      </Box>
-      <Box
-        bgcolor='background.default'
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          textAlign: 'center',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '2vh !important',
-          paddingTop: 8,
-          paddingBottom: 5,
-          width: '100vw',
-          maxWidth: '100%',
-          position: 'static',
-          bottom: 0,
-          minWidth: '100vw',
+          {/* Main Content */}
+          <Grid item xs={10} sm={4} md={4} sx={{ paddingTop: { sm: 3 } }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'relative',
+                height: '100vh',
+                width: '100vw',
 
-          right: 0
-        }}>
-        {/* Content here */}
-        <Footer />
-      </Box>
-    </Box>
+                paddingBottom: 4,
+                flexDirection: 'column'
+              }}>
+              <Outlet />
+            </Box>
+          </Grid>
+
+          {/* Footer */}
+          <Grid
+            item
+            xs={12}
+            sm={4}
+            md={4}
+            sx={{ bottom: 0, minWidth: '100vw', right: 0, pb: { xs: 0, sm: 0, md: 0 } }}>
+            <Box
+              bgcolor='background.level3'
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                textAlign: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '2vh !important',
+                paddingTop: { xsm: 7, sm: 7, md: 6.5 },
+                paddingBottom: { xsm: 6, sm: 6, md: 5.5 },
+                width: '100vw',
+                maxWidth: '100%',
+                position: 'static',
+                bottom: 0,
+                minWidth: '100vw',
+                right: 0
+              }}>
+              {/* Content here */}
+              <Footer />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   )
 }
 {

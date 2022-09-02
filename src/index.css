@@ -1,33 +1,47 @@
-html,
-body {
-  height: 100vh;
+html {
+  height: 100%;
   width: 100vw;
   min-height: 100vh;
   min-width: 100vw;
 }
 body {
+  /* Background cover all the page */
+  min-height: 100vh;
   background-image: url('./assets/subtle-prism.svg');
   background-size: cover;
-  height: 100vh;
+  background-repeat: repeat;
+  /* ------------------------------- */
+  height: 100%;
+  max-height: 100vh;
   width: 100vw;
-  min-height: 100vh;
   min-width: 100vw;
   margin: 0;
   position: relative;
   /* color: rgb(241, 218, 196); */
-  white-space: normal;
 }
 html {
   scroll-behavior: smooth;
-  /* scroll-padding-top: 70px; height of sticky header */
+  /* height of sticky header */
+  scroll-padding-top: 70px;
 }
 
 ::-webkit-scrollbar {
   display: none;
 }
 
+.css-e7aiwn button {
+  margin: 0px !important;
+}
 /* #footer {
   height: 1em;
   width: 100%;
   margin-bottom: 10em;
 } */
+/* * {
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  display: block;
+  } */

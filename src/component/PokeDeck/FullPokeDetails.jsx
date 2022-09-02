@@ -46,7 +46,6 @@ export const FullPokeDetails = () => {
     bgLinearColor2 = 'rgba(0, 0, 0, 0.3)'
   }
   const bgLinear = `linear-gradient(to top,${bgLinearColor} 50%,${bgLinearColor2} 85%, transparent) no-repeat scroll 0 0 `
-  console.log(pokemon.type)
 
   return !pokemon ? (
     <Loading />

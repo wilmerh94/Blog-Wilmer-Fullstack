@@ -40,6 +40,7 @@ export const MenuNavbar = ({ profileOpen, anchor }) => {
   return (
     <Menu
       sx={{ width: '300' }}
+      p={0}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id='primary-search-account-menu'
       keepMounted
@@ -120,7 +121,7 @@ export const MenuNavbar = ({ profileOpen, anchor }) => {
                     }}
                     key={text}
                     component={NavLink}
-                    onClick={() => logout(text)}
+                    onClick={text === 'Logout' ? () => logout(text) : undefined}
                     to={text === 'Logout' ? '/' : path}>
                     <ListItemIcon
                       sx={{

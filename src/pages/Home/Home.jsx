@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Header } from 'src/component/Header/Header'
-import './Home.css'
 import ME from '../../assets/mesvg.svg'
 export const Home = () => {
   const navigate = useNavigate()

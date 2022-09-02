@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 // @mui
 
@@ -15,18 +14,22 @@ export const SearchControl = () => {
   const { transitions } = useTheme()
   const [inputValue, setInputValue] = useState('')
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const handleSearch = (e) => {
     e.preventDefault()
-    navigate('/blogs')
     dispatch(searchInputUser(inputValue))
+  }
+
+  const handleChange = (e) => {
+    if (e.key === 'Enter') {
+      dispatch(searchInputUser(inputValue))
+    }
   }
   const handleCollapse = () => {
     setChecked(true)
     setTimeout(() => {
       setChecked(false)
-    }, 6000)
+    }, 10000)
   }
   return (
     <Collapse orientation='horizontal' in={checked} collapsedSize={55} sx={{ borderRadius: '15px' }}>
@@ -63,9 +66,12 @@ export const SearchControl = () => {
             }}
             placeholder='Search for a blogs'
             value={inputValue}
+            onKeyUp={handleChange}
             onChange={(e) => setInputValue(e.target.value)}
             inputProps={{ 'aria-label': 'Search' }}
-            startAdornment={<SearchIcon sx={{ mr: 2, cursor: 'pointer' }} onClick={handleSearch} />}
+            startAdornment={
+              <SearchIcon sx={{ mr: 3, cursor: 'pointer' }} onClick={checked ? handleSearch : undefined} />
+            }
           />
         </Stack>
       </Container>

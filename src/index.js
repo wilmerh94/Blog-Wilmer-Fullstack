@@ -18,27 +18,28 @@ readUserActiveAction()(store.dispatch)
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <FirebaseProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <ColorProvider>
+    <ColorProvider>
+      <FirebaseProvider>
+        <Provider store={store}>
+          <BrowserRouter>
             <ChatProvider>
               <App />
             </ChatProvider>
-          </ColorProvider>
-        </BrowserRouter>
-        <ToastContainer
-          position='top-center'
-          autoClose={4000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-      </Provider>
-    </FirebaseProvider>
+          </BrowserRouter>
+        </Provider>
+      </FirebaseProvider>
+
+      <ToastContainer
+        position='top-center'
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </ColorProvider>
   </React.StrictMode>
 )
