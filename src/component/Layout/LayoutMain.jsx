@@ -1,4 +1,5 @@
-import { Box, Container, Grid } from '@mui/joy'
+import { Box, Container } from '@mui/joy'
+import Grid from '@mui/material/Unstable_Grid2'
 import { CssBaseline } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 import { Footer } from '../Footer/Footer'
@@ -11,28 +12,29 @@ export const LayoutMain = () => {
   return (
     <>
       <CssBaseline />
-
+      {/* Main Container */}
       <Container
         fixed
         component='section'
         sx={{
           m: { xs: 0, sm: 0, md: 0 },
           px: { xs: 0, sm: 0, md: 0 },
-          width: { xs: '100vw', sm: '100vw', md: '100vw' },
+          width: { xs: '100%', sm: '100%', md: '100%' },
           maxWidth: { xs: '100vw', sm: '100vw', md: '100vw' },
-          height: { xs: '100vh', sm: '100vh', md: '100vh' },
+          height: { xs: '100%', sm: '100%', md: '100%' },
           maxHeight: { xs: '100vh', sm: '100vh', md: '100vh' }
         }}>
+        {/* ---------------------------------------------------------------------------*/}
+
+        {/* Navbar Container */}
         <Grid
           container
           direction='row'
           justifyContent='space-between'
           alignItems='stretch'
-          spacing={{ xs: 12, sm: 4, md: 4 }}
-          columns={{ xs: 1, sm: 1, md: 1 }}
-          rowSpacing={{ xs: 25 }}>
-          <Grid item xs={12} sm={4} md={4} direction='column' justifyContent='center' alignItems='center'>
-            {/* Navbar */}
+          columns={{ xs: 1, sm: 2, md: 1 }}
+          rowSpacing={{ xs: 25, sm: 5 }}>
+          <Grid xs={12} sm={0} md={0} direction='column' justifyContent='center' alignItems='center'>
             <Box
               sx={{
                 display: 'flex',
@@ -43,43 +45,39 @@ export const LayoutMain = () => {
               <Navbar />
             </Box>
           </Grid>
+          {/* ---------------------------------------------------------------------------*/}
 
-          {/* Main Content */}
-          <Grid item xs={10} sm={4} md={4} sx={{ paddingTop: { sm: 3 } }}>
+          {/* Main Content Container (Outlet)*/}
+          <Grid xs={10} sm={4} md={4} sx={{ paddingTop: { xs: 10, sm: 8 } }}>
             <Box
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                position: 'relative',
-                height: '100vh',
-                width: '100vw',
-
-                paddingBottom: 4,
                 flexDirection: 'column'
               }}>
               <Outlet />
             </Box>
           </Grid>
+          {/* ---------------------------------------------------------------------------*/}
 
-          {/* Footer */}
+          {/* Footer Container*/}
           <Grid
-            item
             xs={12}
-            sm={4}
+            sm={0}
             md={4}
-            sx={{ bottom: 0, minWidth: '100vw', right: 0, pb: { xs: 0, sm: 0, md: 0 } }}>
+            sx={{ bottom: 0, minWidth: '100vw', right: 0, p: { xs: 0, sm: 0, md: 0 } }}>
             <Box
-              bgcolor='background.level3'
+              bgcolor='black'
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 textAlign: 'center',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '2vh !important',
-                paddingTop: { xsm: 7, sm: 7, md: 6.5 },
-                paddingBottom: { xsm: 6, sm: 6, md: 5.5 },
+                height: 100,
+                paddingTop: { sm: 7, md: 10.5 },
+                paddingBottom: { sm: 12, md: 8.5 },
                 width: '100vw',
                 maxWidth: '100%',
                 position: 'static',
@@ -87,10 +85,10 @@ export const LayoutMain = () => {
                 minWidth: '100vw',
                 right: 0
               }}>
-              {/* Content here */}
               <Footer />
             </Box>
           </Grid>
+          {/* ---------------------------------------------------------------------------*/}
         </Grid>
       </Container>
     </>

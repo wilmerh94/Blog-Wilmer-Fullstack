@@ -61,7 +61,13 @@ export const Users = () => {
   }, [])
 
   return (
-    <Box sx={{ height: { sm: 400, md: 500 }, width: { sm: 800, md: 1200 }, bgcolor: 'background.level1' }}>
+    <Box
+      sx={{
+        height: { sm: 400, md: 500 },
+        width: { sm: 800, md: 1200 },
+        bgcolor: 'background.level1',
+        borderRadius: (theme) => theme.shape.borderRadius * 8
+      }}>
       <Typography level='h3' sx={{ textAlign: 'center', mt: 3, mb: 3 }}>
         Manage Users
       </Typography>
@@ -77,6 +83,14 @@ export const Users = () => {
           bottom: params.isLastVisible ? 0 : 5
         })}
         sx={{
+          borderRightStyle: 'none',
+          borderLeftStyle: 'none',
+          borderBottomStyle: 'none',
+          // borderRadius: (theme) => theme.shape.borderRadius * 8,
+          '.MuiDataGrid-footerContainer': {
+            borderBottomLeftRadius: (theme) => theme.shape.borderRadius * 8,
+            borderBottomRightRadius: (theme) => theme.shape.borderRadius * 8
+          },
           [`& .${gridClasses.footerContainer}`]: {
             bgcolor: 'background.level1'
           },

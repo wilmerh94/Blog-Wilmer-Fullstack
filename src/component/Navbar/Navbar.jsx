@@ -89,7 +89,7 @@ export const Navbar = () => {
               position: 'fixed',
               zIndex: '100',
               borderRadius: '3rem',
-              backdropFilter: 'blur(15px)'
+              backdropFilter: 'blur(10px)'
             }}>
             <Toolbar
               disableGutters
@@ -116,10 +116,9 @@ export const Navbar = () => {
                     mr: 1,
                     ml: 1,
                     display: 'flex',
-
                     fontWeight: 700,
                     alignItems: 'center',
-                    color: 'inherit',
+                    color: 'text.tertiary',
                     textDecoration: 'none'
                   }}>
                   Will Blogs
@@ -130,21 +129,22 @@ export const Navbar = () => {
               </Box>
               {isSignedIn ? (
                 <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-                  <div>
-                    <IconButton
-                      aria-label='show more'
-                      aria-haspopup='true'
-                      color='inherit'
-                      aria-controls={open ? 'composition-menu' : undefined}
-                      aria-expanded={open ? 'true' : undefined}
-                      onClick={handleProfileOpen}>
-                      <Badge badgeContent={17} color='secondary'>
-                        <MoreVertIcon />
-                      </Badge>
+                  <IconButton
+                    aria-label='show more'
+                    aria-haspopup='true'
+                    color='inherit'
+                    aria-controls={open ? 'composition-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleProfileOpen}>
+                    <Badge
+                      badgeContent={17}
+                      color='secondary'
+                      sx={{ '& .MuiBadge-badge': { fontSize: '0.75rem' } }}>
+                      <MoreVertIcon />
+                    </Badge>
 
-                      {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
-                    </IconButton>
-                  </div>
+                    {profileOpen && <MenuNavbar profileOpen={profileOpen} anchor={anchor} />}
+                  </IconButton>
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>

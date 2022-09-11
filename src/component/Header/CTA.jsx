@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Button, keyframes, Stack } from '@mui/material'
+import { Button } from '@mui/joy'
+import { keyframes, Stack } from '@mui/material'
 
 const rollInLeft = keyframes`
 
@@ -16,14 +17,10 @@ const rollInLeft = keyframes`
 export const CTA = () => {
   return (
     <Stack direction='row' spacing={2}>
-      <Button
-        sx={{ animation: `${rollInLeft} 0.6s ease-out both` }}
-        variant='contained'
-        href='CV'
-        size='small'>
+      <Button sx={{ animation: `${rollInLeft} 0.6s ease-out both` }} variant='solid' href='CV' size='md'>
         Download CV
       </Button>
-      <Button variant='outlined' color='warning' size='small'>
+      <Button variant='plain.context' size='md'>
         Let's Talk
       </Button>
     </Stack>

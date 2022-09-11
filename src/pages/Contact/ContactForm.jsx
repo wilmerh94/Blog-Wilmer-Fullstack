@@ -39,6 +39,7 @@ export const ContactForm = () => {
         alignItems: 'center'
       }}>
       <Avatar sx={{ m: 1 }}>
+        {/* Better Icon */}
         <SpeakerNotesRoundedIcon />
       </Avatar>
       <Typography component='h1' variant='h5'>
@@ -56,8 +57,7 @@ export const ContactForm = () => {
       <Box
         component='form'
         sx={{
-          maxWidth: '800px',
-          width: '40%',
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -105,6 +105,22 @@ export const ContactForm = () => {
         />
         {errors.phone && errors.phone.message}
 
+        <Controller
+          name='subject'
+          rules={{ required: true }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              multiline
+              rows={4}
+              placeholder='Subject*'
+              type='text'
+              fullWidth
+              sx={{ m: 1 }}
+            />
+          )}
+          control={control}
+        />
         <Controller
           name='comment'
           rules={{ required: true }}

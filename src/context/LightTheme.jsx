@@ -29,10 +29,7 @@ export const LightTheme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Playfair Display',
-    h1: {
-      fontFamily: '"Playfair Display","Helvetica", "Arial", sans-serif'
-    }
+    fontFamily: ['Playfair Display', 'Helvetica', 'Arial', 'sans-serif'].join(',')
   },
   shape: {
     borderRadius: 6
@@ -75,22 +72,22 @@ export const LightTheme = createTheme({
       styleOverrides: {
         root: {
           '& label': {
-            color: '#ececec'
+            // color: '#ececec'
           },
           '& label.Mui-focused': {
-            color: '#ececec'
+            // color: '#ececec'
           },
           '& .MuiOutlinedInput-root': {
-            input: { color: '#ececec' },
+            // input: { color: '#ececec' },
             '& fieldset': {
-              borderColor: '#ececec'
+              // borderColor: '#ececec'
             },
             '&:hover fieldset': {
-              borderColor: '#ececec',
-              borderWidth: '0.15rem'
+              // borderColor: '#ececec',
+              // borderWidth: '0.15rem'
             },
             '&.Mui-focused fieldset': {
-              borderColor: '#ececec'
+              // borderColor: '#ececec'
             }
           }
         }
@@ -99,23 +96,32 @@ export const LightTheme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          color: '#ececec'
+          // color: '#ececec'
         }
       }
     },
     MuiTypography: {
       styleOverrides: {
         root: {
-          color: '#ececec',
-          textShadow: '0 6px 20px -3px rgba(0,0,0,0.3)'
-        },
-        'MuiTypography-caption': { color: '#ececec' }
+          // color: '#ececec',
+          textShadow: '0 0 4px rgba(0,0,0,0.65)' // this is for the navbar
+        }
+        // 'MuiTypography-caption': { color: '#ececec' }
       }
     },
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          color: '#ececec'
+          // color: '#ececec'
+        }
+      }
+    },
+    MuiBadge: {
+      styleOverrides: {
+        root: {
+          '& .MuiBadge-badge': {
+            fontFamily: 'Roboto'
+          }
         }
       }
     },
@@ -123,7 +129,7 @@ export const LightTheme = createTheme({
       styleOverrides: {
         '& .MuiFab': {
           root: {
-            backgroundColor: '#3b7197'
+            // backgroundColor: '#3b7197'
           }
         }
       }

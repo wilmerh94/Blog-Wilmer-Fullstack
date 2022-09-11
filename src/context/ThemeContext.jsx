@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import { blueGrey, grey } from '@mui/material/colors'
+import { blueGrey, grey, lightBlue, orange, cyan } from '@mui/material/colors'
 import {
   createTheme,
   Experimental_CssVarsProvider as CssVarsProvider,
   experimental_extendTheme as extendMuiTheme,
+  responsiveFontSizes,
   StyledEngineProvider,
   ThemeProvider
 } from '@mui/material/styles'
@@ -14,9 +15,25 @@ import { extendTheme as extendJoyTheme } from '@mui/joy/styles'
 import { DarkTheme } from './DarkTheme'
 import { LightTheme } from './LightTheme'
 import { CssBaseline } from '@mui/material'
+import { blueish, orangeB } from './ThemeColor'
 
 // const muiTheme = LightTheme()
-const muiTheme = extendMuiTheme()
+const muiTheme = extendMuiTheme({
+  colorSchemes: {
+    light: {
+      palette: {
+        primary: blueish,
+        secondary: blueGrey
+      }
+    },
+    dark: {
+      palette: {
+        primary: cyan,
+        secondary: orangeB
+      }
+    }
+  }
+})
 console.log('MUI', muiTheme)
 const joyTheme = extendJoyTheme({
   cssVarPrefix: 'mui',
@@ -24,7 +41,7 @@ const joyTheme = extendJoyTheme({
     light: {
       palette: {
         background: {
-          ...grey,
+          ...blueGrey,
           level3: 'var(--mui-palette-grey-900)',
           default: 'var(--mui-palette-neutral-900)'
         },
@@ -95,7 +112,7 @@ const joyTheme = extendJoyTheme({
 })
 
 // const theme = deepmerge(joyTheme, muiTheme)
-console.log(joyTheme)
+console.log('JOY', joyTheme)
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
@@ -116,12 +133,14 @@ export const ColorProvider = ({ children }) => {
 
   // const colorTheme = useMemo(() => (mounted === 'true' ? 'false' : 'true'), [mounted])
   const themeMUI = useMemo(() => createTheme(modeMUI === 'light' ? LightTheme : DarkTheme), [modeMUI])
-
+  let finalTheme = createTheme(deepmerge(deepmerge(joyTheme, muiTheme), themeMUI))
+  finalTheme = responsiveFontSizes(finalTheme)
+  // console.log(createTheme(deepmerge(deepmerge(joyTheme, muiTheme), themeMUI)), 'new')
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={themeMUI}>
         <CssVarsProvider
-          theme={createTheme(deepmerge(joyTheme, muiTheme))}
+          theme={finalTheme}
           // colorSchemeStorageKey='custom-joy-theme'
         >
           {children}

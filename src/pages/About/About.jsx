@@ -1,216 +1,91 @@
-import { AspectRatio, Avatar, Box, Button, Card, CardOverflow, Link, Typography } from '@mui/joy'
-import { Collapse } from '@mui/material'
-import { useWindowPosition } from 'src/Hooks/useWindowPosition'
+import { Box, Button, Typography } from '@mui/joy'
+import Grid from '@mui/system/Unstable_Grid/Grid'
+import { CardAbout } from 'src/component/CardAbout/CardAbout'
 
 // Todo: need to fix this area with mui
 // ----------------------------------------------------------------------
 
 export const About = () => {
-  const checked = useWindowPosition('header')
   return (
-    <Box
+    <Grid
+      container
+      spacing={3}
+      direction='column'
+      justifyContent='center'
+      alignItems='center'
+      columnSpacing={5}
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'column',
-        gap: 2,
-        mb: 4,
-        height: '100vh'
+        mb: 1,
+        mt: 2,
+        background:
+          'linear-gradient(to bottom,rgba(0, 0, 0, 0.45) 50%,rgba(0, 0, 0, 0.15) 100%, transparent) no-repeat scroll 0 0 ',
+        backdropFilter: 'blur(0.5px)'
       }}>
-      <Collapse in={checked} collapsedSize={100} {...(checked ? { timeout: 1000 } : {})}>
+      <Grid xs>
+        <Typography
+          level='h4'
+          sx={{
+            mx: 1,
+            px: 4,
+            py: 0.2,
+            my: 1,
+            display: 'flex',
+            alignItems: 'start',
+            color: 'text.terniary',
+            textShadow: '5px 0px 6px rgba(255,255,255, 0.75)',
+            borderRadius: '3rem',
+            minWidth: '100vw',
+            height: 40
+          }}>
+          About Me
+        </Typography>
+      </Grid>
+      <Grid xs={11}>
         <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
-            gap: 2,
-            flexDirection: 'row'
+            alignItems: 'start',
+            flexWrap: 'wrap'
           }}>
-          <Box sx={{ minHeight: 350 }}>
-            <Card
-              variant='outlined'
-              sx={(theme) => ({
-                background: 'rgba(0,0,0,0.5)',
-                width: 300,
-                gridColumn: 'span 2',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                resize: 'horizontal',
-                overflow: 'hidden',
-                gap: 'clamp(0px, (100% - 360px + 32px) * 999, 16px)',
-                transition: 'transform 0.3s, border 0.3s',
-                '&:hover': {
-                  borderColor: theme.vars.palette.primary.outlinedHoverBorder,
-                  transform: 'translateY(-2px)'
-                },
-                '& > *': { minWidth: 'clamp(0px, (360px - 100%) * 999,100%)' }
-              })}>
-              <CardOverflow>
-                <AspectRatio
-                  // minHeight="120px" maxHeight="200px"
-                  variant='soft'
-                  sx={{
-                    flexGrow: 1,
-                    display: 'contents',
-                    '--AspectRatio-paddingBottom':
-                      'clamp(0, (100% - 180px) * 999, min(calc(100% / (16 / 9)), 300px))'
-                  }}>
-                  <img
-                    src='https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?cs=srgb&dl=pexels-francesco-ungaro-1525041.jpg&fm=jpg'
-                    alt='pexel-photo'
-                  />
-                </AspectRatio>
-              </CardOverflow>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                  maxWidth: '200px'
-                }}>
-                <Box sx={{ display: 'flex' }}>
-                  <div>
-                    <Typography level='h2' sx={{ fontSize: 'md' }} mb={0.5}>
-                      <Link
-                        href='#container-responsive'
-                        overlay
-                        underline='none'
-                        sx={{
-                          color: 'text.tertiary',
-                          '&.Mui-focusVisible:after': { outlineOffset: '-4px' }
-                        }}>
-                        Wilmer Herrera
-                      </Link>
-                    </Typography>
-                    <Typography
-                      level='body2'
-                      sx={{
-                        color: 'text.tertiary'
-                      }}>
-                      Denver, CO
-                    </Typography>
-                  </div>
-                  <Box sx={{ ml: 'auto', alignSelf: 'flex-start' }}>
-                    <Avatar variant='soft' color='neutral'>
-                      W
-                    </Avatar>
-                  </Box>
-                </Box>
-                <AspectRatio
-                  variant='soft'
-                  sx={{
-                    '--AspectRatio-paddingBottom': 'clamp(0px, (100% - 200px) * 999, 200px)',
-                    pointerEvents: 'none'
-                  }}>
-                  <img
-                    alt=''
-                    src='https://images.pexels.com/photos/1525041/pexels-photo-1525041.jpeg?cs=srgb&dl=pexels-francesco-ungaro-1525041.jpg&fm=jpg'
-                  />
-                </AspectRatio>
-              </Box>
-              <Typography level='body2' sx={{ color: 'text.tertiary', mt: 1.5, mb: 2 }}>
-                I am a web developer, usually working on web applications. My most recent work experience is
-                as a freelance web developer creating responsive Web Applications, provided automatic secure
-                API to interact with the web/mobile application, payment, data reporting and storage.
-              </Typography>
-            </Card>
-          </Box>
-          <Box sx={{ minHeight: 350 }}>
-            <Card
-              variant='outlined'
-              sx={(theme) => ({
-                background: 'rgba(0,0,0,0.5)',
-
-                width: 300,
-                gridColumn: 'span 2',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                resize: 'horizontal',
-                overflow: 'hidden',
-                gap: 'clamp(0px, (100% - 360px + 32px) * 999, 16px)',
-                transition: 'transform 0.3s, border 0.3s',
-                '&:hover': {
-                  borderColor: theme.vars.palette.primary.outlinedHoverBorder,
-                  transform: 'translateY(-2px)'
-                },
-                '& > *': { minWidth: 'clamp(0px, (360px - 100%) * 999,100%)' }
-              })}>
-              <CardOverflow>
-                <AspectRatio
-                  variant='soft'
-                  sx={{
-                    flexGrow: 1,
-                    display: 'contents',
-                    '--AspectRatio-paddingBottom':
-                      'clamp(0px, (100% - 360px) * 999, min(calc(100% / (16 / 9)), 500px))'
-                  }}>
-                  <img
-                    src='https://images.pexels.com/photos/1496373/pexels-photo-1496373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                    alt='pexel-photo'
-                  />
-                </AspectRatio>
-              </CardOverflow>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 2,
-                  maxWidth: '200px'
-                }}>
-                <Box sx={{ display: 'flex' }}>
-                  <div>
-                    <Typography level='h2' sx={{ fontSize: 'md' }} mb={0.5}>
-                      <Link
-                        href='#container-responsive'
-                        overlay
-                        underline='none'
-                        sx={{
-                          color: 'text.tertiary',
-                          '&.Mui-focusVisible:after': { outlineOffset: '-4px' }
-                        }}>
-                        Wilmer Herrera
-                      </Link>
-                    </Typography>
-                    <Typography
-                      level='body2'
-                      sx={{
-                        color: 'text.tertiary'
-                      }}>
-                      Denver, CO
-                    </Typography>
-                  </div>
-                  <Box sx={{ ml: 'auto', alignSelf: 'flex-start' }}>
-                    <Avatar variant='soft' color='neutral'>
-                      W
-                    </Avatar>
-                  </Box>
-                </Box>
-                <AspectRatio
-                  variant='soft'
-                  sx={{
-                    '--AspectRatio-paddingBottom': 'clamp(0px, (100% - 200px) * 999, 200px)',
-                    pointerEvents: 'none'
-                  }}>
-                  <img
-                    alt=''
-                    src='https://images.pexels.com/photos/1496373/pexels-photo-1496373.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-                  />
-                </AspectRatio>
-              </Box>
-              <Typography level='body2' sx={{ color: 'text.tertiary', mt: 1.5, mb: 2 }}>
-                I am responsible for writing the overarching cloud web App with GCP to the cloud, running
-                scheduled tasks, The firmware allowed it to automatically handle setting up new users and save
-                the information on a GCP.
-              </Typography>
-            </Card>
-          </Box>
+          <Typography level='h5' sx={{ fontSize: 'md', mt: 2, color: 'text.tertiary' }}>
+            My name is Wilmer, I am a Full Stack React JS Developer
+          </Typography>
+          <Typography
+            level='h6'
+            sx={{
+              color: 'primary.50'
+            }}
+            mb={0.5}>
+            This is perfect for showing off my awesome projects I am a Full-Stack Web Developer specializing
+            in React front-ends, NodeJS and GCP backends. Keep scrolling to see some of my projects or
+            checkout my resume here
+          </Typography>
         </Box>
-      </Collapse>
-      <Button variant='solid' color='primary' sx={{ ml: 'auto', fontWeight: 600 }}>
-        Lets Talk
-      </Button>
-    </Box>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+          <CardAbout />
+        </Box>
+      </Grid>
+
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+        <Grid xs>
+          <Button variant='solid' color='primary' sx={{ ml: 'auto', fontWeight: 600 }}>
+            Lets Talk
+          </Button>
+        </Grid>
+      </Box>
+    </Grid>
   )
 }
 {

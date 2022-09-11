@@ -52,11 +52,7 @@ export const MenuNavbar = ({ profileOpen, anchor }) => {
         <Stack direction='row'>
           <MenuList
             sx={{ width: 200, maxWidth: '100%' }}
-            subheader={
-              <ListSubheader sx={{ backgroundColor: 'inherit', fontWeight: 900 }}>
-                Welcome {userData.name}!
-              </ListSubheader>
-            }>
+            subheader={<ListSubheader sx={{ fontWeight: 900 }}>Welcome {userData.name}!</ListSubheader>}>
             {[
               {
                 text: 'Checkout',
@@ -113,7 +109,6 @@ export const MenuNavbar = ({ profileOpen, anchor }) => {
                   <MenuItem
                     sx={{
                       display: 'flex',
-
                       width: '100',
                       height: '35px',
                       maxWidth: '100%',

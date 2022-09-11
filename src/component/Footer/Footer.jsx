@@ -14,7 +14,7 @@ export const Footer = () => {
     <>
       <Typography variant='body2' color='white' align='center'>
         {'Copyright © '}
-        Your Website {new Date().getFullYear()}
+        {new Date().getFullYear()} Wilmer Herrera
         {'.'}
       </Typography>
       <List
@@ -45,6 +45,9 @@ export const Footer = () => {
           )
         })}
       </List>
+      <Typography variant='body2' color='white' align='center'>
+        Creadit and Design Wilmer Herrera.
+      </Typography>
     </>
   )
 }
