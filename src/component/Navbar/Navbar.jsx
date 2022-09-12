@@ -99,9 +99,9 @@ export const Navbar = () => {
               }}>
               <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                 <IconButton
+                  color='primary'
                   edge='start'
                   sx={{ mr: 0 }}
-                  color='inherit'
                   aria-label='open drawer'
                   onClick={onDrawerButtonClick}>
                   <MenuIcon />
@@ -123,16 +123,16 @@ export const Navbar = () => {
                   }}>
                   Will Blogs
                 </Typography>
-                <IconButton sx={{ ml: 1 }} onClick={handleTheme} color='inherit'>
+                <IconButton sx={{ ml: 1 }} onClick={handleTheme} color='primary'>
                   {mode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
               </Box>
               {isSignedIn ? (
                 <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
                   <IconButton
+                    color='primary'
                     aria-label='show more'
                     aria-haspopup='true'
-                    color='inherit'
                     aria-controls={open ? 'composition-menu' : undefined}
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleProfileOpen}>
@@ -148,23 +148,17 @@ export const Navbar = () => {
                 </Box>
               ) : (
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
-                  <Button
-                    color='inherit'
-                    size='small'
-                    sx={{ display: isSignedIn && 'none' }}
-                    component={NavLink}
-                    to='/login'>
+                  <Button size='small' sx={{ display: isSignedIn && 'none' }} component={NavLink} to='/login'>
                     Login
                   </Button>
                   <Button
-                    color='inherit'
                     size='small'
                     sx={{ display: isSignedIn && 'none' }}
                     component={NavLink}
                     to='/sign-up'>
                     Sign up
                   </Button>
-                  <Button color='inherit' size='small' component={NavLink} to='/contact'>
+                  <Button size='small' component={NavLink} to='/contact'>
                     Contact
                   </Button>
                 </Box>

@@ -51,12 +51,7 @@ export const About = () => {
           <Typography level='h5' sx={{ fontSize: 'md', mt: 2, color: 'text.tertiary' }}>
             My name is Wilmer, I am a Full Stack React JS Developer
           </Typography>
-          <Typography
-            level='h6'
-            sx={{
-              color: 'primary.50'
-            }}
-            mb={0.5}>
+          <Typography level='h6' mb={0.5}>
             This is perfect for showing off my awesome projects I am a Full-Stack Web Developer specializing
             in React front-ends, NodeJS and GCP backends. Keep scrolling to see some of my projects or
             checkout my resume here

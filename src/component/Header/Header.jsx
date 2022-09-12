@@ -30,7 +30,7 @@ export const Header = () => {
           sx={{
             mt: 2,
             background:
-              'linear-gradient(to bottom,rgba(59, 113, 151, 0.65) 50%,rgba(59, 113, 151, 0.4) 75%, transparent) no-repeat scroll 0 0 ',
+              'linear-gradient(to bottom,rgba(59, 113, 151, 0.45) 50%,rgba(59, 113, 151, 0.15) 75%, transparent) no-repeat scroll 0 0 ',
             left: 'calc(50% -10rem)',
             borderRadius: '12rem 12rem 0 0',
             overflow: 'hidden'

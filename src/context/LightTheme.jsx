@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles'
+import { blueish } from './ThemeColor'
 
 export const LightTheme = createTheme({
   palette: {
@@ -6,27 +7,27 @@ export const LightTheme = createTheme({
     // customColor: {
     //   light:,main:,dark:, contrastText,
     // },
-    primary: {
-      light: '#8FE3CF',
-      main: '#256D85',
-      dark: '#2B4865',
-      contrastText: '#fff'
-      // secondary: 'rgba(59, 113, 151, 0.22)'
-    },
-    secondary: {
-      main: '#e76e3c'
-    },
-    background: {
-      default: 'rgba(0, 10, 10)',
-      paper: 'rgba(3, 37, 76,0.95)'
-    },
-    text: {
-      primary: 'rgb(237, 165, 76)',
-      secondary: 'rgba(255, 255, 255, 0.9)'
-    },
-    info: {
-      main: '#2196f3'
-    }
+    primary: blueish
+    // {
+    //   light: '#8FE3CF',
+    //   main: '#256D85',
+    //   dark: '#2B4865',
+    //   contrastText: '#fff'
+    //   // secondary: 'rgba(59, 113, 151, 0.22)'
+    // },
+    // secondary: {
+    //   main: '#e76e3c'
+    // },
+    // background: {
+    //   paper: 'rgba(3, 37, 76,0.95)'
+    // },
+    // text: {
+    //   primary: 'rgb(237, 165, 76)',
+    //   secondary: 'rgba(255, 255, 255, 0.9)'
+    // },
+    // info: {
+    //   main: '#2196f3'
+    // }
   },
   typography: {
     fontFamily: ['Playfair Display', 'Helvetica', 'Arial', 'sans-serif'].join(',')

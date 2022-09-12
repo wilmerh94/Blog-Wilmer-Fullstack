@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { blueGrey, grey, lightBlue, orange, cyan } from '@mui/material/colors'
+import { blueGrey, grey, lightBlue, amber, cyan } from '@mui/material/colors'
 import {
   createTheme,
   Experimental_CssVarsProvider as CssVarsProvider,
@@ -15,15 +15,17 @@ import { extendTheme as extendJoyTheme } from '@mui/joy/styles'
 import { DarkTheme } from './DarkTheme'
 import { LightTheme } from './LightTheme'
 import { CssBaseline } from '@mui/material'
-import { blueish, orangeB } from './ThemeColor'
+import { blueish, orangeB, orangeish } from './ThemeColor'
 
 // const muiTheme = LightTheme()
 const muiTheme = extendMuiTheme({
   colorSchemes: {
     light: {
       palette: {
-        primary: blueish,
-        secondary: blueGrey
+        primary: orangeish,
+        secondary: blueish,
+        text: { primary: 'rgba(255 255 255 )' },
+        common: { onBackground: 'rgba(255 ,255, 255, 0.8 )' }
       }
     },
     dark: {
@@ -46,7 +48,7 @@ const joyTheme = extendJoyTheme({
           default: 'var(--mui-palette-neutral-900)'
         },
         primary: {
-          ...blueGrey,
+          ...lightBlue,
           solidColor: 'var(--mui-palette-primary-contrastText)',
           solidBg: 'var(--mui-palette-primary-main)',
           solidHoverBg: 'var(--mui-palette-primary-dark)',
@@ -62,7 +64,7 @@ const joyTheme = extendJoyTheme({
           outlinedActiveBg: 'rgba(var(--mui-palette-primary-mainChannel) / 0.3)'
         },
         neutral: {
-          ...grey
+          ...blueish
         },
         divider: 'var(--mui-palette-divider)',
         text: {
@@ -89,7 +91,7 @@ const joyTheme = extendJoyTheme({
           outlinedActiveBg: 'rgba(var(--mui-palette-primary-mainChannel) / 0.3)'
         },
         neutral: {
-          ...grey
+          ...blueish
         },
         divider: 'var(--mui-palette-divider)',
         text: {
@@ -118,13 +120,11 @@ export const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
 export const ColorProvider = ({ children }) => {
   const [mounted, setMounted] = useState('true')
-  const [modeMUI, setModeMUI] = useState(localStorage.getItem('mui-mode') || 'light')
+  const [modeMUI, setModeMUI] = useState('dark' || localStorage.getItem('mui-mode'))
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        console.log(modeMUI)
-
         setModeMUI((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'))
       }
     }),
@@ -132,8 +132,8 @@ export const ColorProvider = ({ children }) => {
   )
 
   // const colorTheme = useMemo(() => (mounted === 'true' ? 'false' : 'true'), [mounted])
-  const themeMUI = useMemo(() => createTheme(modeMUI === 'light' ? LightTheme : DarkTheme), [modeMUI])
-  let finalTheme = createTheme(deepmerge(deepmerge(joyTheme, muiTheme), themeMUI))
+  const themeMUI = useMemo(() => createTheme(modeMUI === 'light' ? DarkTheme : LightTheme), [modeMUI])
+  let finalTheme = createTheme(deepmerge(themeMUI, deepmerge(joyTheme, muiTheme)))
   finalTheme = responsiveFontSizes(finalTheme)
   // console.log(createTheme(deepmerge(deepmerge(joyTheme, muiTheme), themeMUI)), 'new')
   return (

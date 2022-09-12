@@ -1,7 +1,11 @@
-import SpeakerNotesRoundedIcon from '@mui/icons-material/SpeakerNotesRounded'
-import { Avatar, Box, Button, TextField, Typography } from '@mui/material'
+import ContactMailIcon from '@mui/icons-material/ContactMail'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import { Button } from '@mui/joy'
+import { Avatar, Box, TextField, Typography } from '@mui/material'
+import Grid from '@mui/system/Unstable_Grid/Grid'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 const defaultValues = {
   name: '',
@@ -11,20 +15,22 @@ const defaultValues = {
 }
 export const ContactForm = () => {
   const [messageOnSubmit, setMessageOnSubmit] = useState(false)
-  const [formComplete, setFormComplete] = useState([])
 
-  const { handleSubmit, reset, control, formState, getValues } = useForm({ defaultValues })
-
-  const { errors } = formState
+  const {
+    handleSubmit,
+    reset,
+    register,
+    formState: { errors }
+    // getValues
+  } = useForm({ defaultValues })
 
   const onSubmit = (data) => {
     setMessageOnSubmit(true)
 
-    const values = getValues()
+    // const values = getValues()
     console.log(data)
-    setFormComplete([...formComplete, values])
+    // setFormComplete([...formComplete, values])
     // setMessage2([...data1])
-    console.log(formComplete)
 
     reset(defaultValues)
   }
@@ -40,7 +46,7 @@ export const ContactForm = () => {
       }}>
       <Avatar sx={{ m: 1 }}>
         {/* Better Icon */}
-        <SpeakerNotesRoundedIcon />
+        <ContactMailIcon />
       </Avatar>
       <Typography component='h1' variant='h5'>
         Contact me.
@@ -66,96 +72,83 @@ export const ContactForm = () => {
         }}
         onSubmit={handleSubmit(onSubmit)}
         noValidate>
-        <Controller
-          name='name'
-          rules={{
-            required: 'This is required.',
-            maxLength: 20,
-            minLength: 6
-          }}
-          render={({ field }) => (
-            <TextField {...field} placeholder='Full name*' fullWidth type='text' sx={{ m: 1 }} />
-          )}
-          control={control}
-        />
-        {errors.name && errors.name.message}
-
-        <Controller
-          name='email'
-          rules={{
-            required: true,
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'invalid email address'
-            }
-          }}
-          render={({ field }) => (
-            <TextField {...field} placeholder='Email address*' type='email' fullWidth sx={{ m: 1 }} />
-          )}
-          control={control}
-        />
-
-        {errors.email && errors.email.message}
-        <Controller
-          name='phone'
-          render={({ field }) => (
-            <TextField {...field} placeholder='Phone Number*' type='text' fullWidth sx={{ m: 1 }} />
-          )}
-          control={control}
-        />
-        {errors.phone && errors.phone.message}
-
-        <Controller
-          name='subject'
-          rules={{ required: true }}
-          render={({ field }) => (
+        <Grid container spacing={2} columnSpacing={4} width={{ xs: 450, sm: 650, md: 850, lg: 850 }}>
+          <Grid xs={12} sm={6}>
             <TextField
-              {...field}
-              multiline
-              rows={4}
-              placeholder='Subject*'
-              type='text'
+              required
+              id='fullname'
+              name='fullname'
+              label='Full Name'
               fullWidth
-              sx={{ m: 1 }}
+              margin='dense'
+              {...register('fullname')}
+              error={errors.fullname ? true : false}
             />
-          )}
-          control={control}
-        />
-        <Controller
-          name='comment'
-          rules={{ required: true }}
-          render={({ field }) => (
+            <Typography variant='inherit' color='textSecondary'>
+              {errors.fullname?.message}
+            </Typography>
+          </Grid>
+          <Grid xs={12} sm={6}>
             <TextField
-              {...field}
-              multiline
-              rows={4}
-              placeholder='Message*'
-              type='text'
+              required
+              id='email'
+              name='email'
+              label='Email'
               fullWidth
-              sx={{ m: 1 }}
+              margin='dense'
+              {...register('email')}
+              error={errors.email ? true : false}
             />
-          )}
-          control={control}
-        />
+            <Typography variant='inherit' color='textSecondary'>
+              {errors.email?.message}
+            </Typography>
+          </Grid>
+          <Grid xs={12} sm={12}>
+            <TextField
+              required
+              id='subject'
+              name='subject'
+              label='Subject'
+              fullWidth
+              margin='dense'
+              {...register('subject')}
+              error={errors.subject ? true : false}
+            />
+            <Typography variant='inherit' color='textSecondary'>
+              {errors.subject?.message}
+            </Typography>
+          </Grid>
+          <Grid xs={12} sm={12}>
+            <TextField
+              required
+              id='message'
+              name='message'
+              label='Message'
+              fullWidth
+              margin='dense'
+              {...register('message')}
+              error={errors.message ? true : false}
+            />
+            <Typography variant='inherit' color='textSecondary'>
+              {errors.message?.message}
+            </Typography>
+          </Grid>
+        </Grid>
 
-        {errors.comment && errors.comment.message}
         <Button
           type='submit'
-          variant='contained'
+          variant='solid'
           sx={{
             width: '100%',
             mt: 1,
             mb: 2,
-            background: '#ec5990',
-            letterSpacing: '2px',
-            borderRadius: '15px'
+            letterSpacing: '2px'
           }}>
           Contact
         </Button>
+        <GitHubIcon />
+        <LinkedInIcon />
       </Box>
-      {formComplete.map((formC, index) => (
-        <p key={index}> {formC.name}</p>
-      ))}
     </Box>
   )
 }

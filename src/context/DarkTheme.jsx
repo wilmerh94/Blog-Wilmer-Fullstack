@@ -1,12 +1,10 @@
+import { cyan } from '@mui/material/colors'
 import { createTheme } from '@mui/material/styles'
 
 export const DarkTheme = createTheme({
   palette: {
     mode: 'dark',
-    primary: {
-      main: '#051622',
-      secondary: 'rgba(0, 0, 0, 0.5)'
-    },
+    primary: cyan,
     secondary: {
       main: '#1BA098'
     },
